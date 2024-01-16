@@ -1,0 +1,23 @@
+/* inter-regular - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./Inter-Regular.woff2') format('woff2');
+}
+
+/* inter-900 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url('./Inter-Black.woff2') format('woff2');
+}
+
+/* inter-700 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./inter-v12-latin-700.woff2') format('woff2');
+}

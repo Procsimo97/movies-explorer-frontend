@@ -1,0 +1,119 @@
+.about {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 110px 70px;
+    max-height: 608px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.container__timing-text {
+    display: grid;
+}
+
+.container_with-line {
+    border-bottom: 1px #000 solid;
+    margin-bottom: 66px;
+}
+
+.about__title {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27px;
+    margin-top: 0;
+    margin-bottom: 23px;
+    letter-spacing: -0.04em;
+}
+
+.about__paragrapf {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 14px 0 0;
+}
+
+.timing-block {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 20% 80%;
+}
+
+.timing-block__text {
+    display: flex;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: #A0A0A0;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    margin: 0;    
+}
+
+.timing-block__text_black-color {
+    background-color: #000;
+    color: #fff;
+    margin: 110px 0 0;
+}
+
+.timing-block__text_gray-color {
+    background-color: #F2F2F2;
+    color: #000;
+    margin: 110px 0 0;
+}
+
+@media screen and (max-width: 805px) {
+    .about {
+        padding: 90px 50px;
+    }
+    .about__title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .about__paragrapf {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .about {
+        padding: 70px 18px;
+    }
+    .container {
+        flex-direction: column;
+    }
+    .container_with-line {
+        margin-bottom: 60px;
+    }
+    .about__title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .about__paragrapf {
+        font-size: 11px;
+        line-height: 16px;
+    }
+    .timing-block {
+        grid-template-columns: 35% 65%;
+    }
+    .timing-block__text {
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .timing-block__text_black-color{
+        margin-top: 60px;
+    }
+    .timing-block__text_gray-color {
+        margin-top: 60px;
+    }
+}

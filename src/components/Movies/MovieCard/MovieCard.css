@@ -1,0 +1,67 @@
+.films {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    width: 360px;
+}
+
+.films__box {
+    position: relative;
+}
+
+.films__save {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    min-width: 21px;
+    height: 21px;
+    background-color: #Fff;
+    border-style: none;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 9px;
+    text-align: center;
+    padding: 0 7px;
+    cursor: pointer;
+}
+
+.saved {
+    background-color: #FF4062;
+    background-image: url(../../../images/icon-saved.svg);
+
+}
+
+.films__cover{
+    display: flex; /*для удаления отступа после картинки, как строчного элемента*/
+    margin: 0;
+    padding: 0;
+    width: 360px;
+    height: 201px;
+    object-fit: cover;
+}
+
+.films__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+}
+
+.films__name {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.films__duration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 52px;
+    height: 18px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 10px;
+    background-color: #F9F9F9;
+    color: #A0A0A0;
+}
