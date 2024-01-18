@@ -3,9 +3,9 @@ import arrow from '../../../images/link-icon.svg';
 
 export default function AboutMe() {
     return (
-        <section className="about-me">
+        <section className="about-me" id="aboutme">
             <div className="container_with-line">
-                <h2 className="about__title">Студент</h2>
+                <h2 className="about__title about__title_about-me">Студент</h2>
             </div>
 
             <div className="profile-info">
@@ -27,16 +27,16 @@ export default function AboutMe() {
             <div className="portfolio">
                 <h2 className="portfolio__title">Портфолио</h2>
                 <div className="portfolio__container">
-                    <a className="portfoli__link" href="#end">Статичный сайт</a>
-                    <img className="portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                    <a className="link portfoli__link" href="https://github.com/Procsimo97/how-to-learn" target="_blank" rel="noreferrer">Статичный сайт</a>
+                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
                 </div>
-                <div className="portfolio__container">
-                    <a className="portfoli__link" href="#end">Адаптивный сайт</a>
-                    <img className="portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                <div className="portfolio__container portfolio__container_border">
+                    <a className="link  portfoli__link" href="https://github.com/Procsimo97/russian-travel" target="_blank" rel="noreferrer">Адаптивный сайт</a>
+                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
                 </div>
-                <div className="portfolio__container">
-                    <a className="portfoli__link" href="#end">Одностраничное приложение</a>
-                    <img className="portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                <div className="portfolio__container portfolio__container_border">
+                    <a className="link portfoli__link" href="https://github.com/Procsimo97/react-mesto-api-full-gha" target="_blank" rel="noreferrer">Одностраничное приложение</a>
+                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
                 </div>
             </div>
 

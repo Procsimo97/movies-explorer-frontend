@@ -1,9 +1,9 @@
 export default function AboutProject() {
     return (
-        <section className="about">
+        <section className="about" id="project">
 
             <div className="container_with-line">
-                <h2 className="about__title">О проекте</h2>
+                <h2 className="about__title about__title_main">О проекте</h2>
             </div>
 
             <div className="container">
@@ -19,7 +19,7 @@ export default function AboutProject() {
                 </div>
             </div>
 
-            <div className="container timing-block">
+            <div className="container__timing-block">
                 <p className="timing-block__text timing-block__text_black-color">1 неделя</p>
                 <p className="timing-block__text timing-block__text_gray-color">4 недели</p>
                 <p className="timing-block__text">Back-end</p>

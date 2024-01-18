@@ -7,6 +7,7 @@
 @import url(../src/components/Main/AboutProject/AboutProject.css);
 @import url(../src/components/Main/Techs/Techs.css);
 @import url(../src/components/Main/AboutMe/AboutMe.css);
+@import url(../src/components/Navigation/Navigation.css);
 /*footer*/
 @import url(../src/components/Footer/Footer.css);
 /*Search movie*/
@@ -14,12 +15,25 @@
 @import url(../src/components/Movies/SearchForm/FilterCheck/FilterCheck.css);
 @import url(../src/components/Movies/MoviesCardList/MovieCardList.css);
 @import url(../src/components/Movies/MovieCard/MovieCard.css);
+@import url(../src/components/Movies/Movies.css);
 
 /*header*/
 @import url(../src/components/Header/Header.css);
+@import url(../src/components/BurgerMenu/BurgerMenu.css);
 /*404*/
 @import url(../src/components/PageNotFound/PageNotFound.css);
 /*AuthForm*/
 @import url(../src/components/AuthForm/AuthForm.css);
 /*profile*/
 @import url(../src/components/Profile/Profile.css);
+
+/*Для наведения*/
+.link:hover {
+    opacity: .7;
+    transition: .2s ease-in-out;
+}
+
+.button:hover {
+    opacity: .2;
+    transition: .2s ease-in-out;
+}

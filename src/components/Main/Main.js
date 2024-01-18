@@ -6,10 +6,13 @@ import Techs from "./Techs/Techs.js";
 import Footer from "../Footer/Footer.js"
 import Header from "../Header/Header.js";
 
-function Main() {
+function Main(props) {
   return (
     <section className="main">
-      <Header />
+{/*       <Header class={props.class} classIcon={props.classIcon}
+            isBurgerOpen={props.isBurgerOpen}
+            isOpen={props.onBurgerOpen} 
+            onClose={props.onClose}/> */}
       <Promo />
       <Navtab />
       <AboutProject />

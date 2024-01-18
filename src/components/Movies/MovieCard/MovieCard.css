@@ -25,9 +25,7 @@
 }
 
 .saved {
-    background-color: #FF4062;
-    background-image: url(../../../images/icon-saved.svg);
-
+    background: no-repeat center url(../../../images/icon-saved.svg) #FF4062;
 }
 
 .films__cover{
@@ -44,12 +42,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 14px;
+    margin-top: 14px;
 }
 
 .films__name {
     font-size: 13px;
     font-weight: 500;
     line-height: 16px;
+    margin: 0;
 }
 
 .films__duration {
@@ -64,4 +64,26 @@
     line-height: 10px;
     background-color: #F9F9F9;
     color: #A0A0A0;
+    margin: 0;
+}
+
+@media screen and (max-width: 1170px) {
+    .films__cover{
+		width: 339px;
+        height: 190px;
+	}
+}
+
+@media screen and (max-width: 805px) {
+	.films__cover{
+		width: 339px;
+        height: 190px;
+	}
+}
+
+@media screen and (max-width: 710px) {
+	.films__cover{
+		width: 300px;
+        height: 168px;
+	}
 }

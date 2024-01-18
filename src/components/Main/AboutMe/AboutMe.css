@@ -3,13 +3,12 @@
     flex-direction: column;
     padding: 110px 70px;
     max-height: 1079px;
+    margin: auto;
 }
 
 .profile-info {
-    display: grid;
-    gap: 0 49px;
-    grid-template-columns: 1fr 270px;
-    grid-template-rows: 1fr;
+    display: flex;
+    gap: 49px;
     justify-content: space-between;
 }
 
@@ -54,8 +53,9 @@
 }
 
 .profile-info__photo {
-    max-width: 270px;
-    min-height: 327px;
+    display: block;
+    width: 270px;
+    height: 327px;
     border-radius: 10px;
     object-fit: cover;
 }
@@ -67,7 +67,11 @@
 .portfolio__container {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #E8E8E8;
+/*     margin: 20px 0;    */ 
+}
+
+.portfolio__container_border {
+    border-top: 1px solid #E8E8E8;
 }
 
 .portfolio__title {
@@ -85,7 +89,7 @@
     letter-spacing: -0.04em;
     text-decoration: none;
     color: #000;
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
 .portfoli__link_icon {
@@ -93,7 +97,7 @@
     width: 29px;
     box-sizing: border-box;
     padding: 0 5px 0;
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
 @media screen and (max-width: 805px) {
@@ -128,8 +132,8 @@
         line-height: 18px;
     }
     .profile-info__photo {
-        max-width: 255px;
-        max-height: 307px;
+        width: 255px;
+        height: 307px;
     }
 
     .portfoli__link {
@@ -143,15 +147,20 @@
 
 @media screen and (max-width: 500px) {
     .about-me {
-        padding: 70px 18px;
+        padding: 70px 14px;
+        box-sizing: border-box;
+        max-height: none;
+    }
+    .about__title_about-me{
+        margin-bottom: 28px;
     }
     .profile-info {
-        grid-template-columns: 1fr;
-
+        flex-direction: column-reverse;
+        gap: 40px;
     }
     .profile-info__name {
-        font-size: 40px;
-        line-height: 40px;
+        font-size: 30px;
+        line-height: 36px;
         margin: 0 0 16px;
     }
     .profile-info__job {
@@ -159,25 +168,44 @@
         line-height: 18px;
         margin: 0 0 20px;
     }
-    
     .profile-info__user-info {
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 18px;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
     }
     .profile-info__photo {
-        align-self: start;
+        align-self: center;
         justify-self: stretch;
-        width: 100vw;
-        max-height: 352px;
 
+        width: 292px;
+        height: 352px;
     }
-
-    .portfoli__link {
+     .portfoli__link {
         font-size: 28px;
     }
-    
     .portfoli__link_icon {
         width: 27px;
+    }
+    .profile-info__user-info_link {
+        margin-top: 40px;
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .portfolio {
+        margin-top: 0;
+    }
+    .portfolio__title {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 40px;
+    }
+    .portfoli__link {
+        font-size: 18px;
+        line-height: 28px;
+        font-weight: 400;
+    }
+    .portfoli__link_icon {
+        width: 18px;
+        height: 38px;
     }
 }

@@ -40,10 +40,11 @@
     margin: 14px 0 0;
 }
 
-.timing-block {
+.container__timing-block {
     display: grid;
     gap: 0;
     grid-template-columns: 20% 80%;
+    margin-top: 110px;
 }
 
 .timing-block__text {
@@ -62,13 +63,11 @@
 .timing-block__text_black-color {
     background-color: #000;
     color: #fff;
-    margin: 110px 0 0;
 }
 
 .timing-block__text_gray-color {
     background-color: #F2F2F2;
     color: #000;
-    margin: 110px 0 0;
 }
 
 @media screen and (max-width: 805px) {
@@ -83,14 +82,19 @@
         font-size: 12px;
         line-height: 18px;
     }
+    .container__timing-block {
+        margin-top: 93px;
+    }
 }
 
 @media screen and (max-width: 500px) {
     .about {
         padding: 70px 18px;
+        max-height: none;
     }
     .container {
         flex-direction: column;
+        gap: 56px;
     }
     .container_with-line {
         margin-bottom: 60px;
@@ -98,22 +102,21 @@
     .about__title {
         font-size: 18px;
         line-height: 22px;
+        margin-bottom: 16px;
+    }
+    .about__title_main{
+        margin-bottom: 28px;
     }
     .about__paragrapf {
         font-size: 11px;
         line-height: 16px;
     }
-    .timing-block {
+    .container__timing-block {
         grid-template-columns: 35% 65%;
+        margin-top: 60px;
     }
     .timing-block__text {
         font-size: 11px;
         line-height: 13px;
-    }
-    .timing-block__text_black-color{
-        margin-top: 60px;
-    }
-    .timing-block__text_gray-color {
-        margin-top: 60px;
     }
 }

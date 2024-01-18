@@ -1,14 +1,13 @@
-import MoviesCardList from "./MoviesCardList/MovieCardList";
-import SearchForm from "./SearchForm/SearchForm";
-import Footer from "../Footer/Footer"
+import MoviesCardList from "../MoviesCardList/MovieCardList";
+import SearchForm from "../SearchForm/SearchForm";
+import Footer from "../../Footer/Footer";
+import Header from "../../Header/Header";
 
-import Header from "../Header/Header";
-
-function Movies(props) {
+export default function SavedMovies(props) {
     return (
         <>
             <div className="main">
-            {/*     <Header class={props.class} classIcon={props.classIcon}
+       {/*          <Header class={props.class} classIcon={props.classIcon}
                     isBurgerOpen={props.isBurgerOpen}
                     isOpen={props.onBurgerOpen}
                     onClose={props.onClose} /> */}
@@ -21,5 +20,3 @@ function Movies(props) {
         </>
     )
 };
-
-export default Movies;
