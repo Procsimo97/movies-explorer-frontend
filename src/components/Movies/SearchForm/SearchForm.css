@@ -42,7 +42,7 @@
     color: #fff;
     border-radius: 40px;
     border: none;
-    padding: 8px 11px;
+    padding: 8px 14px;
     margin: 0 0 0 auto;
     cursor: pointer;
     font-size: 11px;
@@ -53,7 +53,35 @@
 .search-form__label {
     background: no-repeat center url(../../../images/icon__search.svg);
     background-size: 22px;
+    padding: 0 6px;
     width: 34px;
     height: 34px;
     margin: 0 10px 0 19px;
+}
+
+@media screen and (max-width: 860px) {
+	.search-form__container {
+        margin: 80px 0 109px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+	.search-form {
+        flex-direction: column;
+        margin: 0 19px;
+    }
+    .search-form__container {
+        margin: 80px 0 46px;
+    }
+    .button-search {
+        margin-right: 20px;
+    }
+    .search-form__input {
+        width: 100%;
+        margin-left: 19px;
+        font-size: 14px;
+    }
+    .search-form__label {
+        display: none;
+    }
 }

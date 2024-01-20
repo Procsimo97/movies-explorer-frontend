@@ -1,9 +1,10 @@
 .films {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
-    width: 360px;
 }
 
 .films__box {
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 
@@ -26,6 +27,10 @@
 
 .saved {
     background: no-repeat center url(../../../images/icon-saved.svg) #FF4062;
+}
+
+.remove-btn {
+    background: no-repeat center url(../../../images/remove-btn.svg) #F9F9F9;
 }
 
 .films__cover{
@@ -79,6 +84,10 @@
 		width: 339px;
         height: 190px;
 	}
+    .films__info {
+        padding: 0 14px;
+        margin-top: 25px;
+    }
 }
 
 @media screen and (max-width: 710px) {
@@ -86,4 +95,16 @@
 		width: 300px;
         height: 168px;
 	}
+    .films__info {
+        padding: 0;
+        margin-top: 16px;
+    }
+    .films__name {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .films__save {
+        top: 10px;
+        right: 10px;
+    }
 }

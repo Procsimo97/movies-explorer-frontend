@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import './App.css';
 import Main from './components/Main/Main';
@@ -13,6 +13,14 @@ import { useState } from 'react';
 
 function App() {
 
+  const location = useLocation();
+  const headerExist = ['/movies', '/saved-movies', '/profile'];
+  const headerLanding = ['/'];
+  
+  /*для подключения заголовка только на нужных вкладках*/
+  const headerVisible = headerExist.includes(location.pathname);
+  const headerLandingVisible = headerLanding.includes(location.pathname);
+
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
   function handleBurgerClick() {
@@ -25,11 +33,16 @@ function App() {
 
   return (
     <>
-      <Header class={"header-langing"}
+      {headerVisible && <Header isBurgerOpen={isBurgerMenuOpen}
+        onBurgerOpen={handleBurgerClick}
+        onClose={closeBurgerMenu} />}
+
+      {headerLandingVisible && <Header class={"header-langing"}
         classIcon={"profile__icon_landing"}
         isBurgerOpen={isBurgerMenuOpen}
         onBurgerOpen={handleBurgerClick}
-        onClose={closeBurgerMenu} />
+        onClose={closeBurgerMenu} />}
+
       <Routes>
         <Route path='/' element={<Main
           class={"header-langing"}

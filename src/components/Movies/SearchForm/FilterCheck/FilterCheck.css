@@ -27,7 +27,7 @@
 }
 
 
-/* The slider */
+/*slider */
 .switch__slider {
     position: absolute;
     cursor: pointer;
@@ -66,7 +66,25 @@
     transform: translateX(20px);
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
+    .filter-container {
+        margin-right: 20px;
+    }
+    .switch__label {
+        margin-left: 40px;
+    }
+    .switch {
+        left: 19px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .filter-container {
+        justify-content: center;
+        border: none;
+        height: 18px;
+        margin: 0 auto 45px;
+    }
     .switch__label {
         font-size: 11px;
     }

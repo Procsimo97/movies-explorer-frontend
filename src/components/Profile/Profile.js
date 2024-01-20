@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Header from "../Header/Header.js";
 
 export default function Profile(props) {
     /*переменная состояния редактирования профиля*/
@@ -21,11 +20,6 @@ export default function Profile(props) {
 
     return (
         <>
-      {/*   <Header class={props.class} classIcon={props.classIcon}
-                    isBurgerOpen={props.isBurgerOpen}
-                    isOpen={props.onBurgerOpen}
-                    onClose={props.onClose} /> */}
-
         <section className="profile">
             <div className="profile-box">
                 <h1 className="profile__title">Привет, {name}!</h1>
