@@ -10,7 +10,7 @@ export default function Header(props) {
     const isMobaileWidth = useResize() <= 778;
 
     /*заглушка*/
-    const [isLoggined, setIsLoggined] = useState(true);
+    const [isLoggined, setIsLoggined] = useState(false);
 
 
     return (

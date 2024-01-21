@@ -106,6 +106,7 @@
         font-size: 18px;
         line-height: 22px;
         margin-bottom: 16px;
+        letter-spacing: -0.04em;
     }
     .about__title_main{
         margin-bottom: 28px;

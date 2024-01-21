@@ -29,19 +29,19 @@ export default function AboutMe() {
                 <div className="portfolio__container">
                     <a className="link portfolio__link" href="https://github.com/Procsimo97/how-to-learn" target="_blank" rel="noreferrer">
                         Статичный сайт
-                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                        <img className="portfolio__link-icon" src={arrow} alt="иконка стрелки" />
                     </a>
                 </div>
                 <div className="portfolio__container portfolio__container_border">
                     <a className="link  portfolio__link" href="https://github.com/Procsimo97/russian-travel" target="_blank" rel="noreferrer">
                         Адаптивный сайт
-                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                        <img className="portfolio__link-icon" src={arrow} alt="иконка стрелки" />
                     </a>
                 </div>
                 <div className="portfolio__container portfolio__container_border">
                     <a className="link portfolio__link" href="https://github.com/Procsimo97/react-mesto-api-full-gha" target="_blank" rel="noreferrer">
                         Одностраничное приложение
-                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                        <img className="portfolio__link-icon" src={arrow} alt="иконка стрелки" />
                     </a>
                 </div>
             </div>

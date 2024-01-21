@@ -52,7 +52,11 @@
         gap: 10px;
     }
     .header__link {
+        font-size: 10px;
         padding: 5px 11px;
         letter-spacing: -0.04em;
+    }
+    .header__link_black {
+        padding: 5px 12px;
     }
 }

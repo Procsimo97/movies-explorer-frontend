@@ -96,7 +96,7 @@
     padding: 20px 0;
 }
 
-.portfolio__link_icon {
+.portfolio__link-icon {
     justify-items: end;
     background: no-repeat;
     box-sizing: border-box;
@@ -147,7 +147,7 @@
         font-size: 28px;
     }
     
-    .portfolio__link_icon {
+    .portfolio__link-icon {
         width: 18px;
         margin-right: 5px;
 
@@ -195,9 +195,6 @@
      .portfoli__link {
         font-size: 28px;
     }
-    .portfoli__link_icon {
-        width: 27px;
-    }
     .profile-info__user-info_link {
         margin-top: 40px;
         font-size: 14px;
@@ -216,9 +213,10 @@
         line-height: 28px;
         font-weight: 400;
     }
-    .portfolio__link_icon {
+    .portfolio__link-icon {
         width: 18px;
         height: 28px;
         padding: 9px 0;
+        margin-right: 0;
     }
 }
