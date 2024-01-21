@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Profile(props) {
     /*переменная состояния редактирования профиля*/
@@ -48,11 +49,13 @@ export default function Profile(props) {
                 <p className="profile__error">При обновлении профиля произошла ошибка.</p>
 
                 {isEditing ? (
-                    <button type="submit" className="button form__btn form__btn_profile" onClick={saveNewDataProfile} >Сохранить</button>
+                    <button type="submit" className="button form-btn form-btn_profile" onClick={saveNewDataProfile} >Сохранить</button>
                 ) : (
                     <div className="buttons">
                         <button type="button" className="button profile__btn" onClick={editProfile}>Редактировать</button>
-                        <button type="button" className="button profile__btn profile__btn_exit">Выйти из аккаунта</button>
+                        <Link to='/'>
+                            <button type="button" className="button profile__btn profile__btn_exit">Выйти из аккаунта</button>
+                        </Link>
                     </div>
                 )
 

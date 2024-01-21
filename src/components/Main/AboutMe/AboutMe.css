@@ -46,10 +46,12 @@
     font-weight: 400;
     line-height: 22px;
     margin: 0;
+    color: #000;
 }
 
 .profile-info__user-info_link {
     font-weight: 500;
+    text-decoration: none;
 }
 
 .profile-info__photo {
@@ -67,7 +69,7 @@
 .portfolio__container {
     display: flex;
     justify-content: space-between;
-/*     margin: 20px 0;    */ 
+    align-items: center;
 }
 
 .portfolio__container_border {
@@ -82,7 +84,9 @@
     color: #A0A0A0;
 }
 
-.portfoli__link {
+.portfolio__link {
+    display: flex;
+    width: 100%;
     font-size: 30px;
     font-weight: 400;
     line-height: 50px;
@@ -92,12 +96,15 @@
     padding: 20px 0;
 }
 
-.portfoli__link_icon {
-    background-image: no-repeat;
-    width: 29px;
+.portfolio__link_icon {
+    justify-items: end;
+    background: no-repeat;
     box-sizing: border-box;
-    padding: 0 5px 0;
-    padding: 20px 0;
+    margin-left: auto;
+    max-width: 28px;
+    height: 50px;
+    padding: 18px 0;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 805px) {
@@ -136,27 +143,32 @@
         height: 307px;
     }
 
-    .portfoli__link {
+    .portfolio__link {
         font-size: 28px;
     }
     
-    .portfoli__link_icon {
-        width: 27px;
+    .portfolio__link_icon {
+        width: 18px;
+        margin-right: 5px;
+
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .profile-info {
+        flex-direction: column-reverse;
+        gap: 40px;
     }
 }
 
 @media screen and (max-width: 500px) {
     .about-me {
-        padding: 70px 14px;
+        padding: 80px 14px 50px;
         box-sizing: border-box;
         max-height: none;
     }
     .about__title_about-me{
         margin-bottom: 28px;
-    }
-    .profile-info {
-        flex-direction: column-reverse;
-        gap: 40px;
     }
     .profile-info__name {
         font-size: 30px;
@@ -199,13 +211,14 @@
         line-height: 20px;
         margin-bottom: 40px;
     }
-    .portfoli__link {
+    .portfolio__link {
         font-size: 18px;
         line-height: 28px;
         font-weight: 400;
     }
-    .portfoli__link_icon {
+    .portfolio__link_icon {
         width: 18px;
-        height: 38px;
+        height: 28px;
+        padding: 9px 0;
     }
 }

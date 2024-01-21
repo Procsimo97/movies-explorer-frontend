@@ -10,7 +10,7 @@
 .container {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 50px;
 }
 
 .container__timing-text {
@@ -29,6 +29,9 @@
     line-height: 27px;
     margin-top: 0;
     margin-bottom: 23px;
+}
+
+.about__title_subtitle {
     letter-spacing: -0.04em;
 }
 
@@ -40,7 +43,7 @@
     margin: 14px 0 0;
 }
 
-.container__timing-block {
+.timing-block {
     display: grid;
     gap: 0;
     grid-template-columns: 20% 80%;
@@ -82,7 +85,7 @@
         font-size: 12px;
         line-height: 18px;
     }
-    .container__timing-block {
+    .timing-block {
         margin-top: 93px;
     }
 }
@@ -111,7 +114,7 @@
         font-size: 11px;
         line-height: 16px;
     }
-    .container__timing-block {
+    .timing-block {
         grid-template-columns: 35% 65%;
         margin-top: 60px;
     }

@@ -3,8 +3,8 @@ import arrow from '../../../images/link-icon.svg';
 
 export default function AboutMe() {
     return (
-        <section className="about-me" id="aboutme">
-            <div className="container_with-line">
+        <section className="about-me about" id="aboutme">
+            <div className="container container_with-line">
                 <h2 className="about__title about__title_about-me">Студент</h2>
             </div>
 
@@ -18,25 +18,31 @@ export default function AboutMe() {
                             занимаюсь творчеством, рисую картины. Люблю кататься на сноуборде
                             и коньках, а ещё увлекаюсь музыкой.
                             Недавно начала кодить и постепенно развиваюсь в этом направлении.</p>
-                        <p className="profile-info__user-info profile-info__user-info_link">Github</p>
+                        <a className="link profile-info__user-info profile-info__user-info_link" href="https://github.com/Procsimo97" target="_blank" rel="noreferrer">Github</a>
                     </div>
                 </div>
-                <img src={me} className="profile-info__photo" alt="author" />
+                <img src={me} className="profile-info__photo" alt="фотография автора проекта" />
             </div>
 
             <div className="portfolio">
                 <h2 className="portfolio__title">Портфолио</h2>
                 <div className="portfolio__container">
-                    <a className="link portfoli__link" href="https://github.com/Procsimo97/how-to-learn" target="_blank" rel="noreferrer">Статичный сайт</a>
-                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                    <a className="link portfolio__link" href="https://github.com/Procsimo97/how-to-learn" target="_blank" rel="noreferrer">
+                        Статичный сайт
+                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                    </a>
                 </div>
                 <div className="portfolio__container portfolio__container_border">
-                    <a className="link  portfoli__link" href="https://github.com/Procsimo97/russian-travel" target="_blank" rel="noreferrer">Адаптивный сайт</a>
-                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                    <a className="link  portfolio__link" href="https://github.com/Procsimo97/russian-travel" target="_blank" rel="noreferrer">
+                        Адаптивный сайт
+                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                    </a>
                 </div>
                 <div className="portfolio__container portfolio__container_border">
-                    <a className="link portfoli__link" href="https://github.com/Procsimo97/react-mesto-api-full-gha" target="_blank" rel="noreferrer">Одностраничное приложение</a>
-                    <img className="link portfoli__link_icon" src={arrow} alt="иконка стрелки" />
+                    <a className="link portfolio__link" href="https://github.com/Procsimo97/react-mesto-api-full-gha" target="_blank" rel="noreferrer">
+                        Одностраничное приложение
+                        <img className="link portfolio__link portfolio__link_icon" src={arrow} alt="иконка стрелки" />
+                    </a>
                 </div>
             </div>
 

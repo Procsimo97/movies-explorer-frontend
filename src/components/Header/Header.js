@@ -7,7 +7,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
 
 export default function Header(props) {
-    const isMobaileWidth = useResize() <= 768;
+    const isMobaileWidth = useResize() <= 778;
 
     /*заглушка*/
     const [isLoggined, setIsLoggined] = useState(true);

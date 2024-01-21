@@ -3,7 +3,12 @@ import cover from "../../../images/film-cover.jpg"
 
 export default function MoviesCard(props) {
 
-   
+   /*временная заглушка для заполнения карточки фильма*/
+    const cardFilm = {
+        name: "Бег это свобода",
+        duration: "1ч 17м",
+    };
+
     const [isSaved, setIsSaved] = useState(false);
     
 
@@ -36,10 +41,10 @@ export default function MoviesCard(props) {
                                      { props.typeIcon === 'save' ? cardTitleButton : ''}
                 </button>
 
-                <img className="films__cover" src={cover} alt="обложка фильма" />
+                <img className="films__cover" src={cover} alt={`обложка фильма ${cardFilm.name}`} />
                 <div className="films__info">
-                    <h2 className="films__name">Бег это свобода</h2>
-                    <p className="films__duration">1ч 17м</p>
+                    <h2 className="films__name">{cardFilm.name}</h2>
+                    <p className="films__duration">{cardFilm.duration}</p>
                 </div>
             </article>
         </div>

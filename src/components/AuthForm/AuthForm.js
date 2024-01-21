@@ -1,11 +1,13 @@
 import logo from "../../images/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function AuthForm(props) {
     return (
         <section className="auth">
             <div className="auth-form">
-                <img className="auth-form__logo" alt="лого" src={logo} />
+                <NavLink to='/' className="auth-form__nav">
+                    <img className="auth-form__logo" alt="лого" src={logo} />
+                </NavLink>
                 <h1 className="auth-form__title">{props.title}</h1>
                 <form className="auth-form__form">
                     <fieldset className="auth-form__fields">
@@ -25,7 +27,7 @@ export default function AuthForm(props) {
                             required
                         />
                     </fieldset>
-                    <button type="submit" className={`form__btn ${props.margin}`}>{props.button}</button>
+                    <button type="submit" className={`form-btn ${props.margin}`}>{props.button}</button>
                     <p className="auth-form__text">{props.text}
                         <Link to={props.link} className="link auth-form__link">{props.linkName}</Link>
                     </p>

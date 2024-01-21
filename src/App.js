@@ -38,7 +38,7 @@ function App() {
         onClose={closeBurgerMenu} />}
 
       {headerLandingVisible && <Header class={"header-langing"}
-        classIcon={"profile__icon_landing"}
+        classIcon={"navigation-profile__icon_landing"}
         isBurgerOpen={isBurgerMenuOpen}
         onBurgerOpen={handleBurgerClick}
         onClose={closeBurgerMenu} />}
@@ -46,7 +46,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Main
           class={"header-langing"}
-          classIcon={"profile__icon_landing"}
+          classIcon={"navigation-profile__icon_landing"}
           isBurgerOpen={isBurgerMenuOpen}
           onBurgerOpen={handleBurgerClick}
           onClose={closeBurgerMenu}

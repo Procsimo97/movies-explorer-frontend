@@ -48,4 +48,11 @@
     .header {
         padding: 0 14px;
     }
+    .header__links{
+        gap: 10px;
+    }
+    .header__link {
+        padding: 5px 11px;
+        letter-spacing: -0.04em;
+    }
 }

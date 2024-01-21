@@ -1,8 +1,8 @@
 export default function Techs() {
     return (
         <section className="techs-project" id="tech">
-            <div className="techs">
-                <div className="container_with-line">
+            <div className="about techs">
+                <div className="container container_with-line">
                     <h2 className="about__title about__title_tech">Технологии</h2>
                 </div>
 

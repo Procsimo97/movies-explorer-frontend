@@ -6,7 +6,7 @@ export default function FilterCheck() {
                 <span className="switch__slider"></span>
 
             </label>
-            <p className="switch__label">Короткометражки</p>
+            <p className="switch-label">Короткометражки</p>
         </div>
     )
 };

@@ -5,7 +5,7 @@ import Promo from "./Promo/Promo.js";
 import Techs from "./Techs/Techs.js";
 import Footer from "../Footer/Footer.js"
 
-function Main(props) {
+function Main() {
   return (
     <section className="main">
       <Promo />
