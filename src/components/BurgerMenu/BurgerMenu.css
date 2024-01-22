@@ -1,0 +1,85 @@
+.burger-menu__button {
+    border: none;
+    background: no-repeat url(../../images/burger-icon.svg) center;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.burger-container {
+    position: fixed;
+    display: flex;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    z-index: 1;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.burger_nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+}
+
+.burger_links {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.burger_opened {
+    visibility: visible;
+    opacity: 1;
+}
+
+.burger-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-left: auto;
+    align-self: center;
+    width: 520px;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.burger-menu__nav {
+    margin: 159px 0 92px;
+    height: 100vh;
+
+}
+
+.burger-menu__btn-exit {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    background: no-repeat center url(../../images/exit-btn.svg);
+    width: 22px;
+    height: 22px;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 440px) {
+    .burger-menu__button {
+        height: 43px;
+    }
+    .burger-menu__btn-exit {
+        top: 13px;
+        right: 13px;
+    }
+    .burger-menu__nav {
+        margin: 140px 0 48px;
+    }
+    .burger_nav {
+        gap: 24px;
+    }
+}
