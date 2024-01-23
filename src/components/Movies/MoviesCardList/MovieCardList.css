@@ -30,6 +30,7 @@
 	line-height: 15px;
 	padding: 11px 0;
 	margin: 68px 0 80px;
+	cursor: pointer;
 }
 
 @media screen and (max-width: 1160px) {

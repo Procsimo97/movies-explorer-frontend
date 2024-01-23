@@ -10,7 +10,7 @@ export default function Header(props) {
     const isMobaileWidth = useResize() <= 778;
 
     /*заглушка*/
-    const [isLoggined, setIsLoggined] = useState(false);
+    const [isLoggined, setIsLoggined] = useState(true);
 
 
     return (
@@ -27,10 +27,10 @@ export default function Header(props) {
                 ) :
                 (<Navigation classIcon={props.classIcon} />)
             ) : (
-                <div className="header__links">
+                <nav className="header__links">
                     <Link to='/signup' className="link header__link" >Регистрация</Link >
                     <Link to='/signin' className="link header__link header__link_black" >Войти</Link >
-                </div>
+                </nav>
             )
             }
         </header>

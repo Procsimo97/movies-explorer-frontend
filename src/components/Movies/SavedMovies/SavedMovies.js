@@ -4,15 +4,15 @@ import Footer from "../../Footer/Footer";
 
 export default function SavedMovies() {
     return (
-        <>
+        <main className="main">
             <div className="main">
                 <div className=" movies">
                     <SearchForm />
-                    <MoviesCardList btnClass={'remove-btn'}
-                                    typeIcon={'remove'}/>
+                  {/*   <MoviesCardList btnClass={'remove-btn'}
+                                    typeIcon={'remove'}/> */}
                 </div>
             </div>
             <Footer />
-        </>
+        </main>
     )
 };

@@ -1,17 +1,9 @@
 import { useState } from "react";
-import cover from "../../../images/film-cover.jpg"
 
 export default function MoviesCard(props) {
 
-   /*временная заглушка для заполнения карточки фильма*/
-    const cardFilm = {
-        name: "Бег это свобода",
-        duration: "1ч 17м",
-    };
-
     const [isSaved, setIsSaved] = useState(false);
     
-
     function saveCard() {
         if(isSaved) {
             setIsSaved(false);
@@ -20,8 +12,16 @@ export default function MoviesCard(props) {
         }
     }
 
+    //перевод минуты в часы
+    function getTimeFromMins(mins) {
+        let hours = Math.trunc(mins/60);
+        let minutes = mins % 60;
+        return hours + 'ч ' + minutes + 'м';
+    }
+    const duration = getTimeFromMins(props.movie.duration);
+
     /*заглушка*/
-    function removeCard() {
+    function removeCard(props) {
         console.log("delete card");
     }
 
@@ -41,10 +41,10 @@ export default function MoviesCard(props) {
                                      { props.typeIcon === 'save' ? cardTitleButton : ''}
                 </button>
 
-                <img className="films__cover" src={cover} alt={`обложка фильма ${cardFilm.name}`} />
+                <img className="films__cover" src={`https://api.nomoreparties.co/${props.movie.image.url}`} alt={`обложка фильма ${props.movie.nameRU}`} />
                 <div className="films__info">
-                    <h2 className="films__name">{cardFilm.name}</h2>
-                    <p className="films__duration">{cardFilm.duration}</p>
+                    <h2 className="films__name">{props.movie.nameRU}</h2>
+                    <p className="films__duration">{duration}</p>
                 </div>
             </article>
         </div>

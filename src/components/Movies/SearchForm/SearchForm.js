@@ -8,7 +8,7 @@ export default function SearchForm() {
     return (
         <>
             {isMobaileWidth ? (
-                <section className="search-form ">
+                <form className="search-form ">
                     <div className="search-form__container">
                         <label className="search-form__label" />
                         <input
@@ -20,9 +20,9 @@ export default function SearchForm() {
                         <button className="button button-search" type="submit">Найти</button>
                     </div>
                     <FilterCheck />
-                </section>
+                </form>
             ) : (
-                <section className="search-form ">
+                <form className="search-form ">
                     <div className="search-form__container">
                         <label className="search-form__label" />
                         <input
@@ -35,7 +35,7 @@ export default function SearchForm() {
                         <FilterCheck />
                     </div>
                     
-              </section>
+              </form>
             )
             }
 
