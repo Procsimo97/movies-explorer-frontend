@@ -2,15 +2,17 @@ import { useState } from "react";
 
 export default function MoviesCard(props) {
 
-    const [isSaved, setIsSaved] = useState(false);
+    const [isSaved, setISaved] = useState(false);
     
-    function saveCard() {
+    function saveCard(card) {
         if(isSaved) {
-            setIsSaved(false);
-        } else {
-            setIsSaved(true);
-        }
+            setISaved(false);
+        }else {
+            setISaved(true);
+        } 
+   //     props.onSave(card);
     }
+
 
     //перевод минуты в часы
     function getTimeFromMins(mins) {

@@ -32,6 +32,15 @@ class MainApi {
                 body: JSON.stringify({ email, password })
             })
             .then(this._validateQuery.bind(this))
+            .then((res) => {
+                if (res.token) {
+                    localStorage.setItem('jwt', res.token);
+                    return res;
+                } else {
+                    return;
+                }
+
+            })
     }
 
     getUserInfo(token) {
@@ -40,8 +49,7 @@ class MainApi {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
-                .then(this._validateQuery.bind(this))
-        })
+        }).then(this._validateQuery.bind(this))
     }
 
     //изменение информации пользователя
@@ -60,35 +68,46 @@ class MainApi {
     }
 
     saveMovie(movie, token) {
-        return fetch(`${this._baseUrl}/movies/${movie._id}` , {
+        return fetch(`${this._baseUrl}/movies/${movie._id}`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
-              }
-            })
+            }
+        })
             .then(this._validateQuery.bind(this));
     }
 
     deleteMovie(movie, token) {
-        return fetch(`${this._baseUrl}/movies/${movie._id}` , {
+        return fetch(`${this._baseUrl}/movies/${movie._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
-              }
-            })
+            }
+        })
             .then(this._validateQuery.bind(this));
     }
 
     getSavedMovies(token) {
         return fetch(`${this._baseUrl}/movies`, {
-        headers: {
-            authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            headers: {
+                authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
         })
-        .then(this._validateQuery.bind(this));
+            .then(this._validateQuery.bind(this));
+    }
+
+    checkToken(token) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+            .then(this._validateQuery);
     }
 
 }

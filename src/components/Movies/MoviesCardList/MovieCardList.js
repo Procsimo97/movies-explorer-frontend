@@ -52,6 +52,8 @@ export default function MoviesCardList(props) {
     }
 
     return (
+        
+
        <section className="movies-container">
             <ul className="movies__list">
             {movieArray.map((movie) => {
@@ -60,6 +62,7 @@ export default function MoviesCardList(props) {
                                                     movie={movie}
                                                     btnClass={'films__save'}
                                                     typeIcon={'save'}
+                                                    onSave={props.onSave}
                                     />)
                                    })}
 

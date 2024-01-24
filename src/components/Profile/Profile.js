@@ -1,22 +1,43 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 export default function Profile(props) {
+    const currentUser = useContext(CurrentUserContext);
+
     /*переменная состояния редактирования профиля*/
     const [isEditing, setIsEditing] = useState(false);
-    const [name, setName] = useState('Анна');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [inputDisable, setInputDisable] = useState('disabled');
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+    }, [currentUser])
 
     /*временные заглушки*/
     const editProfile = () => {
         setIsEditing(true);
+        setInputDisable('');
     }
 
     const saveNewDataProfile = () => {
         setIsEditing(false);
+        setInputDisable('disabled');
     }
 
     function handleNameChange(evt) {
         setName(evt.target.value);
+    }
+    function handleEmailChange(evt) {
+        setEmail(evt.target.value);
+    }
+
+    //отправка формы
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        props.onUpdateUser({ name, email })
     }
 
     return (
@@ -24,7 +45,7 @@ export default function Profile(props) {
         <section className="profile">
             <div className="profile-box">
                 <h1 className="profile__title">Привет, {name}!</h1>
-                <form className="profile__form">
+                <form className="profile__form" onSubmit={handleSubmit}>
                     <div className="profile__container">
                         <p className="profile__label">Имя</p>
                         <input className="profile__input"
@@ -34,6 +55,7 @@ export default function Profile(props) {
                             value={name || ''}
                             required
                             onChange={handleNameChange}
+                            disabled={inputDisable}
                         />
                     </div>
                     <div className="profile__container profile__container_border">
@@ -43,6 +65,8 @@ export default function Profile(props) {
                             name="email"
                             type="text"
                             required
+                            onChange={handleEmailChange}
+                            disabled={inputDisable}
                         />
                     </div>
                 </form>
@@ -54,7 +78,7 @@ export default function Profile(props) {
                     <div className="buttons">
                         <button type="button" className="button profile__btn" onClick={editProfile}>Редактировать</button>
                         <Link to='/'>
-                            <button type="button" className="button profile__btn profile__btn_exit">Выйти из аккаунта</button>
+                            <button type="button" className="button profile__btn profile__btn_exit" onClick={props.signOut}>Выйти из аккаунта</button>
                         </Link>
                     </div>
                 )
