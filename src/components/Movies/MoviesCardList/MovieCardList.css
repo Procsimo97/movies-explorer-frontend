@@ -8,8 +8,8 @@
 
 .movies__list {
     display: grid;
+	min-height: fit-content;
     grid-template-columns: repeat(3, 360px);
-	grid-template-rows: repeat(2, 231px);
 	gap: 60px 25px;
 	list-style: none;
 	max-width: 1140px;

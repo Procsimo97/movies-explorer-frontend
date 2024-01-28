@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -14,8 +15,9 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import SavedMovies from './components/Movies/SavedMovies/SavedMovies';
 import Header from './components/Header/Header';
-//import { useResize } from './utils/windowSize';
 import mainApi from './utils/MainApi';
+
+import { REQUEST_MESSAGE } from './utils/config';
 
 
 function App() {
@@ -24,22 +26,31 @@ function App() {
   const location = useLocation();
   const headerExist = ['/movies', '/saved-movies', '/profile'];
   const headerLanding = ['/'];
- // const currentWidth = useResize();
-
-  const token = localStorage.getItem('jwt');
 
   /*для подключения заголовка только на нужных вкладках*/
   const headerVisible = headerExist.includes(location.pathname);
   const headerLandingVisible = headerLanding.includes(location.pathname);
 
   const [currentUser, setCurrentUser] = useState('');
+
   const [isLogged, setIsLogged] = useState(true);
+  const [searchError, setSearchError] = useState('')
+  const [savedMovies, setSavedMovies] = useState(() => {
+    const movieList = localStorage.getItem('saved-movies');
+    return movieList ? JSON.parse(movieList) : [];
+  });
+  //запрос поиска
+  const [query, setQuery] = useState(() => {
+    const queryList = localStorage.getItem('search-movie');
+    return queryList ? JSON.parse(queryList) : [] ;
+  });
   const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
-   console.log(movies);
+  //для обновления профиля
+  const [isEditProfileLoading, setIsEditProfileLoading] = useState(false);
+  const [messageStatus, setMessageStatus] = useState('');
 
   //функции для работы бургер меню
   function handleBurgerClick() {
@@ -57,8 +68,13 @@ function App() {
       getMovies()
         .then((res) => {
           setMovies(res)
+          if (res.length === 0) {
+            setSearchError('Ничего не найдено');
+          }
         })
         .catch((err) => {
+          setSearchError(`Во время запроса произошла ошибка.
+          Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз`)
           console.log(`Ошибка подрузки фильмов: ${err}`)
         })
     }
@@ -67,11 +83,15 @@ function App() {
   //получение данных пользователя
   useEffect(() => {
     if (isLogged) {
-      mainApi.getUserInfo(token)
-        .then((res) => setCurrentUser(res))
+      mainApi.getUserInfo()
+        .then((res) => {
+          localStorage.setItem('userInfo', JSON.stringify(res));
+
+          setCurrentUser(res);
+        })
         .catch((err) => console.log(`Ошибка получения данных пользователя ${err}`))
     }
-  }, [isLogged])
+  }, [setCurrentUser])
 
   //проверка токена и переадресация при повторном входе
   const checkToken = useCallback(() => {
@@ -82,43 +102,42 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLogged(true);
-            navigate("/movies", { replace: true });
           }
         })
         .catch((err) => console.log("Ошибка проверки токена:", err))
     }
-  }, [navigate])
+  }, [setIsLogged, handleLogin])
 
   /*проверка токена*/
   useEffect(() => {
     checkToken();
-  }, [])
+  }, [navigate])
 
 
   //регистрация и присвоение данных пользователя
   function handleRegister(dataRegister) {
     mainApi.register(dataRegister)
       .then((res) => {
-        if(res) {
-          navigate("/singin")
+        if (res) {
+          navigate("/signin");
         }
       })
       .catch((err) => console.log(`Ошибка регистрации пользователя ${err}`))
   }
 
-  //регистрация
+  //авторизация
   function handleLogin(dataLogin) {
     mainApi.login(dataLogin)
       .then(() => {
         setIsLogged(true);
-        navigate("/movies")
+        navigate("/movies", { replace: true });
       })
       .catch((err) => console.log(`Ошибка авторизации пользователя ${err}`))
   }
 
   //выход из системы
   function signOut() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setIsLogged(false);
     setCurrentUser({});
     navigate("/signin", { replace: true });
@@ -126,17 +145,76 @@ function App() {
 
   //обновление данных пользователя
   function handleUpdateUser(data) {
-    mainApi.setUserInfo(token, data)
-      .then((newUser) => setCurrentUser(newUser))
-      .catch((err) => console.log(`Ошибка обновления данных пользователя ${err}`))
+    setIsEditProfileLoading(true);
+    mainApi.setUserInfo(data)
+      .then((newUser) => {
+        setMessageStatus(REQUEST_MESSAGE.PROFILE_SUCCESSULLY);
+        setCurrentUser(newUser);
+        localStorage.setItem('userInfo', JSON.stringify(newUser));
+      })
+      .catch((err) => {
+        setMessageStatus(REQUEST_MESSAGE.ERROR_PROFILE_500);
+        console.log(`Ошибка обновления данных пользователя ${err}`)
+      })
+      .finally(() => setIsEditProfileLoading(false))
   }
 
   //сохранение фильма
   function handleSaveMovie(movie) {
-    mainApi.saveMovie(movie, token)
+    mainApi.saveMovie({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+      owner: movie.owner,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    })
       .then((res) => {
-        setSavedMovies([...res])
+        setSavedMovies([res, ...savedMovies])
       })
+  }
+
+  //удаление фильма
+  function handleRemove(movie) {
+    const movieToDelete = savedMovies.find((element) =>
+      element._id === movie._id || element.id === movie.movieId)
+
+    mainApi.deleteMovie(movieToDelete._id)
+      .then(() => {
+        let newArray;
+        if (movie._id) {
+          newArray = savedMovies.filter(
+            (c) => c._id !== movie._id)
+        } else {
+          newArray = savedMovies.filter(
+            (c) => c.movieId !== movie.id)
+        }
+        setSavedMovies(newArray);
+      })
+      .catch((err) => console.log(`Ошибка удаления фильма ${err}`))
+  }
+
+  //фильтрация по названию
+  function searchMovies(query, movieslist) {
+    movieslist = movieslist.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(query.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(query.toLowerCase())
+    )
+    return movieslist;
+  }
+
+  //функция обработки запроса
+  function handleFilerMovies(e) {
+    e.preventDefault();
+    const inputSearch = e.target.search_movie.value;
+    setQuery(searchMovies(inputSearch, movies));
+    return query;
   }
 
   return (
@@ -153,7 +231,7 @@ function App() {
         isBurgerOpen={isBurgerMenuOpen}
         onBurgerOpen={handleBurgerClick}
         onClose={closeBurgerMenu}
-        isLogged={isLogged}  />}
+        isLogged={isLogged} />}
 
       <Routes>
         <Route path='/' element={<Main
@@ -166,12 +244,25 @@ function App() {
         />
         <Route path='/signup' element={<Register onRegister={handleRegister} />} />
         <Route path='/signin' element={<Login onLogin={handleLogin} />} />
-        <Route path='/movies' element={<Movies movies={movies} />} />
+        <Route path='/movies' element={<Movies movies={movies}
+          savedMovies={savedMovies}
+          onSave={handleSaveMovie}
+          onRemove={handleRemove}
+          onFilter={handleFilerMovies}
+          query={query}
+          searchError={searchError}
+        />} />
 
-        <Route path='/saved-movies' element={<SavedMovies movies={savedMovies} 
-                                                          onSave={handleSaveMovie}/>} />
+        <Route path='/saved-movies' element={<SavedMovies movies={savedMovies}
+          onRemove={handleRemove}
+          onFilter={handleFilerMovies}
+
+          query={query} />}
+        />
         <Route path='/profile' element={<Profile onUpdateUser={handleUpdateUser}
-                                                 signOut={signOut} />} />
+          signOut={signOut}
+          isLoading={isEditProfileLoading}
+          messageStatus={messageStatus} />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

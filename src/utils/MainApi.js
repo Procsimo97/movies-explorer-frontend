@@ -39,11 +39,11 @@ class MainApi {
                 } else {
                     return;
                 }
-
             })
     }
 
-    getUserInfo(token) {
+    getUserInfo() {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 authorization: `Bearer ${token}`,
@@ -53,7 +53,8 @@ class MainApi {
     }
 
     //изменение информации пользователя
-    setUserInfo(token, data) {
+    setUserInfo(data) {
+        const token = localStorage.getItem('jwt');
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
@@ -67,19 +68,22 @@ class MainApi {
         }).then(this._validateQuery.bind(this))
     }
 
-    saveMovie(movie, token) {
-        return fetch(`${this._baseUrl}/movies/${movie._id}`, {
+    saveMovie(movie) {
+        const token = localStorage.getItem('jwt');
+        return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(movie),
         })
             .then(this._validateQuery.bind(this));
     }
 
-    deleteMovie(movie, token) {
-        return fetch(`${this._baseUrl}/movies/${movie._id}`, {
+    deleteMovie(movieId) {
+        const token = localStorage.getItem('jwt');
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${token}`,

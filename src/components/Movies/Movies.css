@@ -8,6 +8,10 @@
 	box-sizing: border-box;
 }
 
+.movie-search-status {
+	margin-top: 50px;
+}
+
 @media screen and (max-width: 805px) {
 	.movies {
 		padding: 0 30px;

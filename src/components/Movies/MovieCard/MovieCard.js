@@ -1,18 +1,4 @@
-import { useState } from "react";
-
-export default function MoviesCard(props) {
-
-    const [isSaved, setISaved] = useState(false);
-    
-    function saveCard(card) {
-        if(isSaved) {
-            setISaved(false);
-        }else {
-            setISaved(true);
-        } 
-   //     props.onSave(card);
-    }
-
+export default function MoviesCard({movie, isSaved, onRemove, onSave, typeIcon, btnClass}) {
 
     //перевод минуты в часы
     function getTimeFromMins(mins) {
@@ -20,11 +6,18 @@ export default function MoviesCard(props) {
         let minutes = mins % 60;
         return hours + 'ч ' + minutes + 'м';
     }
-    const duration = getTimeFromMins(props.movie.duration);
+    const duration = getTimeFromMins(movie.duration);
+    
+    function removeCard() {
+        onRemove(movie)
+    }
 
-    /*заглушка*/
-    function removeCard(props) {
-        console.log("delete card");
+    function saveMovieCard() {
+        if(!isSaved) {
+            onSave(movie);
+        }else {
+            removeCard();
+        }
     }
 
     const cardSaveButtonClassName = (
@@ -35,17 +28,21 @@ export default function MoviesCard(props) {
         `${isSaved ? '' : 'Сохранить'}`
     );
 
+
     return(
         <div className="films">
             <article className="films__box">
-                <button type="button" className={`link ${cardSaveButtonClassName} films__save ${props.btnClass} `}
-                                      onClick={props.typeIcon === 'save' ? saveCard : removeCard}>
-                                     { props.typeIcon === 'save' ? cardTitleButton : ''}
+                <button type="button" className={`link ${cardSaveButtonClassName} films__save ${btnClass} `}
+                                      onClick={typeIcon === 'save' ? saveMovieCard : removeCard}>
+                                     { typeIcon === 'save' ? cardTitleButton : ''}
                 </button>
 
-                <img className="films__cover" src={`https://api.nomoreparties.co/${props.movie.image.url}`} alt={`обложка фильма ${props.movie.nameRU}`} />
+                <img className="films__cover" src={typeIcon === 'save' 
+                                                ? `https://api.nomoreparties.co/${movie.image.url}`
+                                                : movie.image}
+                                                 alt={`обложка фильма ${movie.nameRU}`} />
                 <div className="films__info">
-                    <h2 className="films__name">{props.movie.nameRU}</h2>
+                    <h2 className="films__name">{movie.nameRU}</h2>
                     <p className="films__duration">{duration}</p>
                 </div>
             </article>

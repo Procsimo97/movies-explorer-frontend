@@ -7,19 +7,14 @@ function Login({ onLogin }) {
         email: '',
         password: ''
     })
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         onLogin(formValue);
-
     }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormValue({
-            ...formValue,
-            [name]: value
-        });
+    const handleChangeValues = (data) => {
+        setFormValue(data);
     }
 
     return (
@@ -30,8 +25,8 @@ function Login({ onLogin }) {
             linkName={"Регистрация"}
             margin={"margin"}
             onSubmit={handleSubmit}
-            onChange={handleChange}
-            value={formValue}
+            onChange={handleChangeValues}
+            values={formValue}
             />
     )
 }

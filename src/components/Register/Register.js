@@ -1,25 +1,27 @@
 import { useState } from "react";
 import AuthForm from "../AuthForm/AuthForm";
+import { useFormWithValidation } from "../../utils/hooks/validateForms";
 
 function Register({ onRegister }) {
+
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
+
     const [formValue, setFormValue] = useState({
         name: '',
         email: '',
         password: ''
     })
 
-    const handleChange = (evt) => {
-        const {name, value} = evt.target;
-        setFormValue({
-            ...formValue,
-            [name] : value
-        });
-    }
-
     const handleSubmit = (evt) => {
         evt.preventDefault();
         onRegister(formValue);
-      }
+        console.log(formValue);
+    }
+
+    const handleChangeValues = (data) => {
+        setFormValue(data);
+    }
+
 
     return (
         <AuthForm title={"Добро пожаловать!"}
@@ -27,9 +29,9 @@ function Register({ onRegister }) {
             text={"Уже зарегистрированы?"}
             link={"/signin"}
             linkName={"Войти"}
-            onChange={handleChange}
+            onChange={handleChangeValues}
             onSubmit={handleSubmit} 
-            value={formValue}
+            nameValue={values}
             >
 
             <label className="auth-form__label" htmlFor="name">Имя</label>
@@ -39,7 +41,8 @@ function Register({ onRegister }) {
                 type="text"
                 required 
                 onChange={handleChange}
-                value={formValue.name || ''}/>
+                value={values.name || ''}/>
+                <span className="auth-form__input-error">{errors.name}</span>
 
         </AuthForm>
 
