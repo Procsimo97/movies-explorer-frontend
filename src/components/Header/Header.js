@@ -4,7 +4,6 @@ import Navigation from "../Navigation/Navigation";
 import { useResize } from "../../utils/windowSize";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 
-
 export default function Header(props) {
     const isMobaileWidth = useResize() <= 778;
 

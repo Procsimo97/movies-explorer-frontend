@@ -1,7 +1,7 @@
 import FilterCheck from "./FilterCheck/FilterCheck";
 import { useResize } from "../../../utils/windowSize";
 
-export default function SearchForm({filterFunc, shortFilterState, shortFilm, isSearchValid, handleChange, inputValue}) {
+export default function SearchForm({ filterFunc, shortFilterState, isSearchValid, handleChange, inputValue }) {
 
     const isMobaileWidth = useResize() <= 650;
 
@@ -18,11 +18,14 @@ export default function SearchForm({filterFunc, shortFilterState, shortFilm, isS
                             placeholder="Фильм"
                             value={inputValue}
                             onChange={handleChange}
-                            
+
                         />
-                        <button className="button button-search" type="submit" >Найти</button>
+                        <span className={isSearchValid ? "search-form__input-error" : 'search-form__input-error search-form__input-error_active'}>Нужно ввести ключевое слово</span>
+                        <button className={isSearchValid ? "button button-search" : "button-search button-search_inactive"}
+                            type="submit"
+                            disabled={isSearchValid ? false : true}>Найти</button>
                     </div>
-                    <FilterCheck filter={shortFilm}/>
+                    <FilterCheck shortFilterState={shortFilterState} />
                 </form>
             ) : (
                 <form className="search-form " onSubmit={filterFunc}>
@@ -35,14 +38,16 @@ export default function SearchForm({filterFunc, shortFilterState, shortFilm, isS
                             placeholder="Фильм"
                             value={inputValue}
                             onChange={handleChange}
-                            
+
                         />
-                        <button className="button button-search" type="submit">Найти</button>
-                        <FilterCheck shortFilterState={shortFilterState}/>
+                        <button className={isSearchValid ? "button button-search" : "button-search button-search_inactive"}
+                            type="submit"
+                            disabled={isSearchValid ? false : true}>Найти</button>
+                        <FilterCheck shortFilterState={shortFilterState} />
                     </div>
-                    <span className={isSearchValid ? "search-form__input-error" : 'search-form__input-error search-form__input-error_active '}>Нужно ввести ключевое слово</span>
-                    
-              </form>
+                    <span className={isSearchValid ? "search-form__input-error" : 'search-form__input-error search-form__input-error_active'}>Нужно ввести ключевое слово</span>
+
+                </form>
             )
             }
 

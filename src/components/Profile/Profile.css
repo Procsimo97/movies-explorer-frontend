@@ -55,9 +55,9 @@
 .profile__error {
     bottom: 65px;
     display: none;
-    color: #FF004C;
-    font-size: 11px;
-    font-weight: 400;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    font-weight: 500;
     line-height: 13px;
     margin: 0;
 }
@@ -80,6 +80,8 @@
 .profile__btn_exit {
     color: #FF004C;
 }
+
+
 
 .buttons {
     display: flex;

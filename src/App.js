@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { getMovies } from './utils/MovieApi';
 
+import ProtectedRoute from './components/ProptectedRoute/ProtectedRoute';
 import CurrentUserContext from '../src/contexts/CurrentUserContext';
 import Main from './components/Main/Main';
 import Movies from './components/Movies/Movies';
@@ -44,7 +45,11 @@ function App() {
     const queryList = localStorage.getItem('search-movie');
     return queryList ? JSON.parse(queryList) : [] ;
   });
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(() => {
+    const movieList = localStorage.getItem('films');
+    return movieList ? JSON.parse(movieList) : [];
+  });
+  const [isSeachingMovies, setIsSeachingMovies] = useState(false);
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
@@ -65,20 +70,19 @@ function App() {
   //получение карточек с сервера
   useEffect(() => {
     if (isLogged) {
+      setIsSeachingMovies(true);
       getMovies()
         .then((res) => {
           setMovies(res)
-          if (res.length === 0) {
-            setSearchError('Ничего не найдено');
-          }
         })
         .catch((err) => {
           setSearchError(`Во время запроса произошла ошибка.
           Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз`)
           console.log(`Ошибка подрузки фильмов: ${err}`)
         })
+        .finally(() => setIsSeachingMovies(false));
     }
-  }, [isLogged])
+  }, [isLogged, setSavedMovies])
 
   //получение данных пользователя
   useEffect(() => {
@@ -86,7 +90,6 @@ function App() {
       mainApi.getUserInfo()
         .then((res) => {
           localStorage.setItem('userInfo', JSON.stringify(res));
-
           setCurrentUser(res);
         })
         .catch((err) => console.log(`Ошибка получения данных пользователя ${err}`))
@@ -111,8 +114,8 @@ function App() {
   /*проверка токена*/
   useEffect(() => {
     checkToken();
+    setMessageStatus('');
   }, [navigate])
-
 
   //регистрация и присвоение данных пользователя
   function handleRegister(dataRegister) {
@@ -137,7 +140,7 @@ function App() {
 
   //выход из системы
   function signOut() {
-    localStorage.clear();
+    localStorage.removeItem('jwt');
     setIsLogged(false);
     setCurrentUser({});
     navigate("/signin", { replace: true });
@@ -156,7 +159,9 @@ function App() {
         setMessageStatus(REQUEST_MESSAGE.ERROR_PROFILE_500);
         console.log(`Ошибка обновления данных пользователя ${err}`)
       })
-      .finally(() => setIsEditProfileLoading(false))
+      .finally(() => {
+        setIsEditProfileLoading(false);
+      })
   }
 
   //сохранение фильма
@@ -244,25 +249,33 @@ function App() {
         />
         <Route path='/signup' element={<Register onRegister={handleRegister} />} />
         <Route path='/signin' element={<Login onLogin={handleLogin} />} />
-        <Route path='/movies' element={<Movies movies={movies}
+
+        <Route path='/movies' element={<ProtectedRoute isLogged={isLogged} component={Movies}
+          movies={movies}
           savedMovies={savedMovies}
           onSave={handleSaveMovie}
           onRemove={handleRemove}
           onFilter={handleFilerMovies}
           query={query}
           searchError={searchError}
-        />} />
+          isSearching={isSeachingMovies}
+        /> } />
 
-        <Route path='/saved-movies' element={<SavedMovies movies={savedMovies}
+        <Route path='/saved-movies' element={<ProtectedRoute isLogged={isLogged} component={SavedMovies}
+          movies={savedMovies}
           onRemove={handleRemove}
           onFilter={handleFilerMovies}
-
-          query={query} />}
-        />
-        <Route path='/profile' element={<Profile onUpdateUser={handleUpdateUser}
+          query={query}
+          searchError={searchError}
+          isSearching={isSeachingMovies}
+          />} />
+        
+        <Route path='/profile' element={<ProtectedRoute isLogged={isLogged} component={Profile}
+          onUpdateUser={handleUpdateUser}
           signOut={signOut}
           isLoading={isEditProfileLoading}
-          messageStatus={messageStatus} />} />
+          messageStatus={messageStatus}
+          setMessageStatus={setMessageStatus} />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

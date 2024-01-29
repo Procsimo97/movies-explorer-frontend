@@ -22,7 +22,6 @@ function Register({ onRegister }) {
         setFormValue(data);
     }
 
-
     return (
         <AuthForm title={"Добро пожаловать!"}
             button={"Зарегистрироваться"}

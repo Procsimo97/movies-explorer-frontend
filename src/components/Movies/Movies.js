@@ -2,6 +2,7 @@ import MoviesCardList from "./MoviesCardList/MovieCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import Footer from "../Footer/Footer"
 import { useState, useEffect } from "react";
+import Preloader from "../Preloader/Preloader";
 
 function Movies({
     movies,
@@ -10,6 +11,7 @@ function Movies({
     onSave,
     onRemove,
     savedMovies,
+    isSearching,
     searchError,
 }) {
 
@@ -21,12 +23,7 @@ function Movies({
     //валидное поле поиска
     const [isSearchValid, setIsSearchValid] = useState(true);
     const [isShortMovie, setIsShortMovie] = useState(false);
-
     const filterShort = useState(false);
-
-    useEffect(() => {
-        localStorage.setItem('inputValue', inputValue);
-    }, [inputValue])
 
     //функция изменения знаения поля поиска
     function handleChange(e) {
@@ -40,12 +37,28 @@ function Movies({
 
     //фильтр на короткометр
     useEffect(() => {
-        if(filterShort[0]) {
+        if (filterShort[0]) {
             setIsShortMovie(true);
         } else {
             setIsShortMovie(false);
         }
     }, [filterShort]);
+
+    //сохранение фильмов, значение инпута в локальное хранилище
+    useEffect(() => {
+        localStorage.setItem('films', JSON.stringify(movies));
+    }, [movies])
+    useEffect(() => {
+        localStorage.setItem('inputValue', inputValue);
+    }, [inputValue])
+    useEffect(() => {
+        localStorage.setItem('checkBox', filterShort[0])
+    }, [filterShort])
+
+
+    function isPreloaderActive() {
+        if (isSearching) return <Preloader />
+    }
 
     return (
         <main className="main">
@@ -57,6 +70,7 @@ function Movies({
                         inputValue={inputValue}
                         handleChange={handleChange}
                         isSearchValid={isSearchValid} />
+                    {isPreloaderActive()}
                     {searchError ? (
                         <p className="movie-search-status">{searchError}</p>
                     ) : (
@@ -68,8 +82,9 @@ function Movies({
                             onRemove={onRemove}
                             query={query}
                             isShortMovie={isShortMovie}
-/*                             filterShortFilm={showShortMovie} */
                             isfilterShortFilm={filterShort}
+                            localStorageItems={'films'}
+                            filterFunc={onFilter} //отправка формы
                         />
                     )}
 

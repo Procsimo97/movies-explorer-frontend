@@ -52,6 +52,11 @@
     line-height: 18px;
 }
 
+.button-search_inactive {
+    cursor: default;
+    background-color: darkgrey;
+}
+
 .search-form__label {
     background: no-repeat center url(../../../images/icon__search.svg);
     background-size: 22px;
@@ -80,6 +85,10 @@
 	.search-form__container {
         margin: 80px 0 109px;
     }
+    .search-form__input-error {
+        left: 58px;
+        bottom: 118px;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -100,5 +109,8 @@
     }
     .search-form__label {
         display: none;
+    }
+    .search-form__input-error {
+        left: 22px;
     }
 }

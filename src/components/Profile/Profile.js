@@ -28,6 +28,7 @@ export default function Profile(props) {
     const editProfile = () => {
         setIsEditing(true);
         setInputDisable('');
+        props.setMessageStatus('');
     }
 
     //отправка формы
@@ -102,8 +103,7 @@ export default function Profile(props) {
 
                         }
                     </form>
-                    <p className={props.messageStatus ? 'profile__error' : 'profile__error profile__error_active '}>{props.messageStatus}</p>
-
+                    <p className={props.messageStatus ? 'profile__error profile__error_active' : 'profile__error profile__error_active '}>{props.messageStatus}</p>
 
                 </div>
 

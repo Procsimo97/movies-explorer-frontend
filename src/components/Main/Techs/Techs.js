@@ -23,7 +23,6 @@ export default function Techs() {
 
             </div>
 
-
         </section>
     )
 }

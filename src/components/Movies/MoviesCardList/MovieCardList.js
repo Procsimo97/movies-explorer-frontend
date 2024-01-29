@@ -28,20 +28,20 @@ function displayCardCongig(currentWidth) {
     return movieListConfig = moviesCardListConfig.mobile;
 }
 
-
 export default function MoviesCardList(props) {
-
-    const movieList = props.movies;
+   
     const currentWidth = useResize();
     //полученные фильмы
     const [movieArray, setMovieArray] = useState(() => {
-        const movies = localStorage.getItem('films');
-        return movies ? JSON.parse(movies) : [];
+        const movieList = localStorage.getItem(props.localStorageItems);
+        return movieList ? JSON.parse(movieList) : [];
     });
+
+    //максимально выводимый массив
+    const [arr, maxArr] = useState('');
     //параметр, зависящий от ширины экрана
     const listParams = displayCardCongig(currentWidth);
-
-    //изначальная длина массива
+    //доступная длина массива
     let lengthArray = listParams.arrayLength;
 
     // cравнение сохраненных фильмов - получение сохраненных карточек
@@ -51,20 +51,23 @@ export default function MoviesCardList(props) {
         });
     }
 
-    //определяет максимальную длину массива и выводит карточки
-        useEffect(() => {
-            movieArray.length = lengthArray;
-            setMovieArray(movieList.slice(0, movieArray.length));
-        }, [props.movies, listParams])
-    
+     //определяет макс. длинну массива
+    function setMovieArrayLength(movies) {
+        (movies.length > lengthArray) 
+        ? setMovieArray(movies.slice(0, lengthArray))
+        : setMovieArray(movies);
+        maxArr(movies);
+    }
+
     //определеяет сколько карточек добавить в зависимости от ширины экрана
     function displayMore() {
         lengthArray = + listParams.addCards;
-        return setMovieArray(movieList.slice(0, movieArray.length + listParams.addCards));
+        return setMovieArray(arr.slice(0, movieArray.length + listParams.addCards));
     }
 
+    //показывает запросы
     function showQuery(movies) {
-       setMovieArray(movies);
+        setMovieArrayLength(movies);
     }
 
     //показыввает короткие фильмы
@@ -73,19 +76,25 @@ export default function MoviesCardList(props) {
         if(props.query) {
             newArr = props.query.filter((movie) => movie.duration < 40);
         }
-        setMovieArray(newArr);
+        setMovieArrayLength(newArr);
     }
+    
+    function displayMovies(movies) {
+        showQuery(movies);
+      //  shortFilm(movies);
+    }
+   
+    console.log(movieArray);
 
     //выводит запрос (фильмы)
     useEffect(() => {
-        showQuery(props.query);
+     /*    displayMovies(movieArray); */
+    /*     showQuery(props.query);
         if (props.isShortMovie) {
             shortFilm(movieArray);
-        }
-        
-    }, [props.query, props.isShortMovie])
-
-    localStorage.setItem('films', JSON.stringify(movieArray));
+        } */
+       // setMovieArray(props.movies)
+    }, [props.query/* , props.isShortMovie */])
 
     return (
         <section className="movies-container">
@@ -103,7 +112,7 @@ export default function MoviesCardList(props) {
                 })}
 
             </ul>
-            {/* movieArray.length > lengthArray && */ (<button className="button movies__btn-more" type="button" onClick={displayMore}>Ещё</button>)}
+            {arr.length > movieArray.length && (<button className="button movies__btn-more" type="button" onClick={displayMore}>Ещё</button>)}
 
         </section>
     )
