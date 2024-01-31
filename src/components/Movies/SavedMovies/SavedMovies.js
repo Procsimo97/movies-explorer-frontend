@@ -69,6 +69,7 @@ export default function SavedMovies(props) {
                         isShortMovie={isShortMovie}
                         isfilterShortFilm={filterShort}
                         localStorageItems={'saved-movies'}
+                        toggleShortMovies={props.toggleShortMovies}
                     />
                 </div>
             </div>
@@ -76,4 +77,3 @@ export default function SavedMovies(props) {
         </main>
     )
 };
-

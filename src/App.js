@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -34,17 +35,14 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState('');
 
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [searchError, setSearchError] = useState('')
-  const [savedMovies, setSavedMovies] = useState(() => {
-    const movieList = localStorage.getItem('saved-movies');
-    return movieList ? JSON.parse(movieList) : [];
-  });
+  const [savedMovies, setSavedMovies] = useState([]);
   //запрос поиска
-  const [query, setQuery] = useState(() => {
+  const [query, setQuery] = useState([() => {
     const queryList = localStorage.getItem('search-movie');
-    return queryList ? JSON.parse(queryList) : [] ;
-  });
+    return queryList ? JSON.parse(queryList) : [];
+  }]);
   const [movies, setMovies] = useState(() => {
     const movieList = localStorage.getItem('films');
     return movieList ? JSON.parse(movieList) : [];
@@ -94,7 +92,7 @@ function App() {
         })
         .catch((err) => console.log(`Ошибка получения данных пользователя ${err}`))
     }
-  }, [setCurrentUser])
+  }, [isLogged])
 
   //проверка токена и переадресация при повторном входе
   const checkToken = useCallback(() => {
@@ -117,17 +115,6 @@ function App() {
     setMessageStatus('');
   }, [navigate])
 
-  //регистрация и присвоение данных пользователя
-  function handleRegister(dataRegister) {
-    mainApi.register(dataRegister)
-      .then((res) => {
-        if (res) {
-          navigate("/signin");
-        }
-      })
-      .catch((err) => console.log(`Ошибка регистрации пользователя ${err}`))
-  }
-
   //авторизация
   function handleLogin(dataLogin) {
     mainApi.login(dataLogin)
@@ -137,10 +124,23 @@ function App() {
       })
       .catch((err) => console.log(`Ошибка авторизации пользователя ${err}`))
   }
+  //регистрация и присвоение данных пользователя
+  function handleRegister(dataRegister) {
+    mainApi.register(dataRegister)
+      .then((res) => {
+        if (res) {
+          navigate("/signin");
+        }
+        handleLogin(dataRegister);
+      })
+      .catch((err) => console.log(`Ошибка регистрации пользователя ${err}`))
+  }
+
+
 
   //выход из системы
   function signOut() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setIsLogged(false);
     setCurrentUser({});
     navigate("/signin", { replace: true });
@@ -218,8 +218,16 @@ function App() {
   function handleFilerMovies(e) {
     e.preventDefault();
     const inputSearch = e.target.search_movie.value;
-    setQuery(searchMovies(inputSearch, movies));
+    (location.pathname === '/saved-movies')
+      ? setQuery(searchMovies(inputSearch, savedMovies))
+      : setQuery(searchMovies(inputSearch, movies));
     return query;
+  }
+  
+  //фильтрует на короткометр
+  function toggleShortMovies(movies) {
+    const newArr = movies.filter((movie) => movie.duration < 40);
+    return newArr;
   }
 
   return (
@@ -259,7 +267,8 @@ function App() {
           query={query}
           searchError={searchError}
           isSearching={isSeachingMovies}
-        /> } />
+          toggleShortMovies={toggleShortMovies}
+        />} />
 
         <Route path='/saved-movies' element={<ProtectedRoute isLogged={isLogged} component={SavedMovies}
           movies={savedMovies}
@@ -268,8 +277,9 @@ function App() {
           query={query}
           searchError={searchError}
           isSearching={isSeachingMovies}
-          />} />
-        
+          toggleShortMovies={toggleShortMovies}
+        />} />
+
         <Route path='/profile' element={<ProtectedRoute isLogged={isLogged} component={Profile}
           onUpdateUser={handleUpdateUser}
           signOut={signOut}

@@ -6,13 +6,14 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies({
     movies,
-    onFilter,
+    onFilter,//отображает запрос
     query,
     onSave,
     onRemove,
     savedMovies,
     isSearching,
     searchError,
+    toggleShortMovies, //фильтрует на короткометр
 }) {
 
     //поля запроса
@@ -46,15 +47,17 @@ function Movies({
 
     //сохранение фильмов, значение инпута в локальное хранилище
     useEffect(() => {
-        localStorage.setItem('films', JSON.stringify(movies));
+        localStorage.setItem('films', JSON.stringify(movies)); //переданные фильмы
     }, [movies])
     useEffect(() => {
-        localStorage.setItem('inputValue', inputValue);
+        localStorage.setItem('inputValue', inputValue); //значение инпута
     }, [inputValue])
     useEffect(() => {
-        localStorage.setItem('checkBox', filterShort[0])
+        localStorage.setItem('checkBox', filterShort[0]) //состояние чекбокса
     }, [filterShort])
-
+    useEffect(() => {
+        localStorage.setItem('search-movie', JSON.stringify(query)); //массив фильмов по запросу
+    })
 
     function isPreloaderActive() {
         if (isSearching) return <Preloader />
@@ -84,7 +87,7 @@ function Movies({
                             isShortMovie={isShortMovie}
                             isfilterShortFilm={filterShort}
                             localStorageItems={'films'}
-                            filterFunc={onFilter} //отправка формы
+                            toggleShortMovies={toggleShortMovies} //фильтр на короткометр
                         />
                     )}
 

@@ -29,16 +29,16 @@ function displayCardCongig(currentWidth) {
 }
 
 export default function MoviesCardList(props) {
-   
+
     const currentWidth = useResize();
     //полученные фильмы
     const [movieArray, setMovieArray] = useState(() => {
         const movieList = localStorage.getItem(props.localStorageItems);
-        return movieList ? JSON.parse(movieList) : [];
+        return movieList ? JSON.parse(movieList) : props.movies;
     });
 
     //максимально выводимый массив
-    const [arr, maxArr] = useState('');
+    const [arr, maxArr] = useState([]);
     //параметр, зависящий от ширины экрана
     const listParams = displayCardCongig(currentWidth);
     //доступная длина массива
@@ -51,11 +51,11 @@ export default function MoviesCardList(props) {
         });
     }
 
-     //определяет макс. длинну массива
+    //определяет макс. длинну массива
     function setMovieArrayLength(movies) {
-        (movies.length > lengthArray) 
-        ? setMovieArray(movies.slice(0, lengthArray))
-        : setMovieArray(movies);
+        (movies.length > lengthArray)
+            ? setMovieArray(movies.slice(0, lengthArray))
+            : setMovieArray(movies);
         maxArr(movies);
     }
 
@@ -72,29 +72,27 @@ export default function MoviesCardList(props) {
 
     //показыввает короткие фильмы
     function shortFilm(movies) {
-        let newArr = movies.filter((movie) => movie.duration < 40);
-        if(props.query) {
-            newArr = props.query.filter((movie) => movie.duration < 40);
-        }
-        setMovieArrayLength(newArr);
+        setMovieArrayLength(props.toggleShortMovies(movies))
     }
-    
-    function displayMovies(movies) {
-        showQuery(movies);
-      //  shortFilm(movies);
-    }
-   
-    console.log(movieArray);
 
     //выводит запрос (фильмы)
     useEffect(() => {
-     /*    displayMovies(movieArray); */
-    /*     showQuery(props.query);
+        showQuery(props.query);
         if (props.isShortMovie) {
-            shortFilm(movieArray);
-        } */
-       // setMovieArray(props.movies)
-    }, [props.query/* , props.isShortMovie */])
+            shortFilm(props.query);
+        }
+    }, [props.query, props.isShortMovie])
+
+    //выводит короткометражки
+    useEffect(() => {
+        shortFilm(arr);
+    }, [props.isShortMovie])
+
+
+    //сброс состояни массива при переходе на вкладку.
+    useEffect(() => {
+        setMovieArrayLength(props.movies);
+    }, [props.localStorageItems, props.movies])
 
     return (
         <section className="movies-container">
