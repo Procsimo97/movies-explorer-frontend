@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import './App.css';
 
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -47,7 +47,7 @@ function App() {
     const movieList = localStorage.getItem('films');
     return movieList ? JSON.parse(movieList) : [];
   });
-  const [isSeachingMovies, setIsSeachingMovies] = useState(false);
+  const [isSeachingMovies, setIsSeachingMovies] = useState(true); //прелоадер
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
@@ -68,7 +68,6 @@ function App() {
   //получение карточек с сервера
   useEffect(() => {
     if (isLogged) {
-      setIsSeachingMovies(true);
       getMovies()
         .then((res) => {
           setMovies(res)
