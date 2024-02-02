@@ -21,7 +21,6 @@ import mainApi from './utils/MainApi';
 
 import { REQUEST_MESSAGE } from './utils/config';
 
-
 function App() {
 
   const navigate = useNavigate();
@@ -37,7 +36,12 @@ function App() {
 
   const [isLogged, setIsLogged] = useState(false);
   const [searchError, setSearchError] = useState('')
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState(() => {
+    const movieList = localStorage.getItem('saved-movies');
+    return movieList ? JSON.parse(movieList) : [];
+  });
+  //поля запроса для сохраненных фильмов
+  const [inputSavedFilmsValue, setInputSavedFilmsValue] = useState('');
   //запрос поиска
   const [query, setQuery] = useState([() => {
     const queryList = localStorage.getItem('search-movie');
@@ -47,7 +51,7 @@ function App() {
     const movieList = localStorage.getItem('films');
     return movieList ? JSON.parse(movieList) : [];
   });
-  const [isSeachingMovies, setIsSeachingMovies] = useState(true); //прелоадер
+  const [isSeachingMovies, setIsSeachingMovies] = useState(false); //прелоадер
 
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
@@ -67,10 +71,12 @@ function App() {
 
   //получение карточек с сервера
   useEffect(() => {
+
     if (isLogged) {
       getMovies()
         .then((res) => {
-          setMovies(res)
+          setMovies(res);
+          setIsSeachingMovies(true);
         })
         .catch((err) => {
           setSearchError(`Во время запроса произошла ошибка.
@@ -79,7 +85,7 @@ function App() {
         })
         .finally(() => setIsSeachingMovies(false));
     }
-  }, [isLogged, setSavedMovies])
+  }, [])
 
   //получение данных пользователя
   useEffect(() => {
@@ -102,6 +108,14 @@ function App() {
         .then((res) => {
           if (res) {
             setIsLogged(true);
+            (location.pathname === '/saved-movies')
+                ? handleFilerMovies(inputSavedFilmsValue)
+                : handleFilerMovies(localStorage.getItem('inputValue'));
+            if (location.pathname === "/signup" || location.pathname === "/signin") {
+              navigate("/movies");
+            } else {
+              navigate(location.pathname);
+            }
           }
         })
         .catch((err) => console.log("Ошибка проверки токена:", err))
@@ -112,7 +126,7 @@ function App() {
   useEffect(() => {
     checkToken();
     setMessageStatus('');
-  }, [navigate])
+  }, [setIsLogged])
 
   //авторизация
   function handleLogin(dataLogin) {
@@ -139,7 +153,7 @@ function App() {
 
   //выход из системы
   function signOut() {
-    localStorage.clear();
+    localStorage.removeItem('jwt');
     setIsLogged(false);
     setCurrentUser({});
     navigate("/signin", { replace: true });
@@ -180,7 +194,8 @@ function App() {
       nameEN: movie.nameEN,
     })
       .then((res) => {
-        setSavedMovies([res, ...savedMovies])
+        setSavedMovies([res, ...savedMovies]);
+        localStorage.setItem('saved-movies', JSON.stringify([res, ...savedMovies]));
       })
   }
 
@@ -200,6 +215,7 @@ function App() {
             (c) => c.movieId !== movie.id)
         }
         setSavedMovies(newArray);
+        localStorage.setItem('saved-movies', JSON.stringify(newArray));
       })
       .catch((err) => console.log(`Ошибка удаления фильма ${err}`))
   }
@@ -214,20 +230,20 @@ function App() {
   }
 
   //функция обработки запроса
-  function handleFilerMovies(e) {
-    e.preventDefault();
-    const inputSearch = e.target.search_movie.value;
+  function handleFilerMovies(query) {
     (location.pathname === '/saved-movies')
-      ? setQuery(searchMovies(inputSearch, savedMovies))
-      : setQuery(searchMovies(inputSearch, movies));
+      ? setQuery(searchMovies(query, savedMovies))
+      : setQuery(searchMovies(query, movies));
+
     return query;
   }
-  
+
   //фильтрует на короткометр
   function toggleShortMovies(movies) {
     const newArr = movies.filter((movie) => movie.duration < 40);
     return newArr;
   }
+
 
   return (
 
@@ -270,6 +286,8 @@ function App() {
         />} />
 
         <Route path='/saved-movies' element={<ProtectedRoute isLogged={isLogged} component={SavedMovies}
+          inputValue={inputSavedFilmsValue}
+          setInputValue={setInputSavedFilmsValue}
           movies={savedMovies}
           onRemove={handleRemove}
           onFilter={handleFilerMovies}

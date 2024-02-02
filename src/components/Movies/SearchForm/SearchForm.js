@@ -5,10 +5,15 @@ export default function SearchForm({ filterFunc, shortFilterState, isSearchValid
 
     const isMobaileWidth = useResize() <= 650;
 
+    function submitQuery(e) {
+        e.preventDefault();
+        filterFunc(inputValue);
+    }
+
     return (
         <>
             {isMobaileWidth ? (
-                <form className="search-form " onSubmit={filterFunc}>
+                <form className="search-form " onSubmit={submitQuery}>
                     <div className="search-form__container">
                         <label className="search-form__label" />
                         <input
@@ -28,7 +33,7 @@ export default function SearchForm({ filterFunc, shortFilterState, isSearchValid
                     <FilterCheck shortFilterState={shortFilterState} />
                 </form>
             ) : (
-                <form className="search-form " onSubmit={filterFunc}>
+                <form className="search-form " onSubmit={submitQuery}>
                     <div className="search-form__container">
                         <label className="search-form__label" />
                         <input

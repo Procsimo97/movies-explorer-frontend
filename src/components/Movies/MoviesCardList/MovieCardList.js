@@ -78,20 +78,22 @@ export default function MoviesCardList(props) {
     //выводит запрос (фильмы)
     useEffect(() => {
         showQuery(props.query);
-        if (props.isShortMovie) {
-            shortFilm(props.query);
-        }
-    }, [props.query, props.isShortMovie])
+        (props.isShortMovie) ? shortFilm(props.query)
+                             : showQuery(props.query);
+        
+    }, [props.query, props.isShortMovie, props.movies])
 
     //выводит короткометражки
     useEffect(() => {
-        shortFilm(arr);
-    }, [props.isShortMovie])
-
+        if(props.isShortMovie){
+            shortFilm(arr);
+        }
+        props.onFilter(props.inputValue)
+   }, [props.isShortMovie, props.movies])
 
     //сброс состояни массива при переходе на вкладку.
     useEffect(() => {
-        setMovieArrayLength(props.movies);
+            setMovieArrayLength(props.movies);
     }, [props.localStorageItems, props.movies])
 
     return (

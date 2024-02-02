@@ -63,6 +63,7 @@ function Movies({
         if (isSearching) return <Preloader />
     }
 
+
     return (
         <main className="main">
             <div className="main">
@@ -88,6 +89,8 @@ function Movies({
                             isfilterShortFilm={filterShort}
                             localStorageItems={'films'}
                             toggleShortMovies={toggleShortMovies} //фильтр на короткометр
+                            onFilter={onFilter} //фильтр на названия
+                            inputValue={inputValue}
                         />
                     )}
 

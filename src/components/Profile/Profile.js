@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/hooks/validateForms";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 export default function Profile(props) {
     const currentUser = useContext(CurrentUserContext);
     const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
 
     const conditionValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+
     /*переменная состояния редактирования профиля*/
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(() => {
@@ -16,6 +18,8 @@ export default function Profile(props) {
     const [email, setEmail] = useState(() => {
         const email = localStorage.getItem('userInfo');
         return email ? JSON.parse(email).email : currentUser.email });
+
+    console.log(name, email);
 
     const [inputDisable, setInputDisable] = useState('disabled');
 
@@ -83,6 +87,7 @@ export default function Profile(props) {
                                     required
                                     onChange={handleChange}
                                     disabled={inputDisable}
+                                    pattern={EMAIL_PATTERN}
                                 />
                             </div>
                             <span className="profile__input-error">{errors.email}</span>

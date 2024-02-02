@@ -11,12 +11,6 @@ export default function SavedMovies(props) {
     const filterShort = useState(false);
     const [isShortMovie, setIsShortMovie] = useState(false);
 
-    //поля запроса
-    const [inputValue, setInputValue] = useState(() => {
-        const query = localStorage.getItem('inputSavedFilmsValue');
-        return query ? query : '';
-    });
-
     //функция изменения знаения поля поиска
     function handleChange(e) {
         if (!e.target.value) {
@@ -24,7 +18,7 @@ export default function SavedMovies(props) {
         } else {
             setIsSearchValid(true);
         }
-        setInputValue(e.target.value);
+        props.setInputValue(e.target.value);
     }
     //фильтр на короткометр
     useEffect(() => {
@@ -34,15 +28,6 @@ export default function SavedMovies(props) {
             setIsShortMovie(false);
         }
     }, [filterShort]);
-
-    useEffect(() => {
-        localStorage.setItem('inputSavedFilmsValue', inputValue);
-    }, [inputValue])
-
-    //сохранение фильмов в локальное хранилище
-    useEffect(() => {
-        localStorage.setItem('saved-movies', JSON.stringify(props.movies));
-    }, [props.movies])
 
     function isPreloaderActive() {
         if(props.isSearching) return <Preloader/>
@@ -57,7 +42,7 @@ export default function SavedMovies(props) {
                         shortFilterState={filterShort}
                         isSearchValid={isSearchValid}
                         handleChange={handleChange}
-                        inputValue={inputValue}
+                        inputValue={props.inputValue}
                     />
                     {isPreloaderActive()}
                     <MoviesCardList btnClass={'remove-btn'}
@@ -70,6 +55,8 @@ export default function SavedMovies(props) {
                         isfilterShortFilm={filterShort}
                         localStorageItems={'saved-movies'}
                         toggleShortMovies={props.toggleShortMovies}
+                        onFilter={props.onFilter} //фильтр на названия
+                        inputValue={props.inputValue}
                     />
                 </div>
             </div>
