@@ -8,25 +8,30 @@ export default function Profile(props) {
     const currentUser = useContext(CurrentUserContext);
     const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
 
-    const conditionValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
-
     /*переменная состояния редактирования профиля*/
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(() => {
         const name = localStorage.getItem('userInfo');
-        return name ? name.name : currentUser.name });
+        return name ? name.name : currentUser.name
+    });
     const [email, setEmail] = useState(() => {
         const email = localStorage.getItem('userInfo');
-        return email ? JSON.parse(email).email : currentUser.email });
+        return email ? JSON.parse(email).email : currentUser.email
+    });
 
-    console.log(name, email);
+    const userData = {
+        name: values.name || name,
+        email: values.email || email,
+    }; //изменяемые значения полей для сравнения со значениями текующего юзера
+
+    const conditionValidity = (!isValid || (currentUser.name === userData.name && currentUser.email === userData.email));
 
     const [inputDisable, setInputDisable] = useState('disabled');
-
     useEffect(() => {
         setName(currentUser.name);
         setEmail(currentUser.email);
     }, [currentUser])
+
 
     //меняет состояние кнопок
     const editProfile = () => {
@@ -72,7 +77,7 @@ export default function Profile(props) {
                                     onChange={handleChange}
                                     disabled={inputDisable}
                                 />
-                                
+
                             </div>
                             <span className="profile__input-error">{errors.name}</span>
                         </div>
