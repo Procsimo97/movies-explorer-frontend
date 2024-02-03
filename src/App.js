@@ -35,7 +35,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState('');
 
   const [isLogged, setIsLogged] = useState(false);
-  const [searchError, setSearchError] = useState('')
+  const [searchError, setSearchError] = useState('');
   const [savedMovies, setSavedMovies] = useState(() => {
     const movieList = localStorage.getItem('saved-movies');
     return movieList ? JSON.parse(movieList) : [];
@@ -85,7 +85,7 @@ function App() {
         })
         .finally(() => setIsSeachingMovies(false));
     }
-  }, [])
+  }, [isLogged])
 
   //получение данных пользователя
   useEffect(() => {
@@ -280,7 +280,7 @@ function App() {
           onRemove={handleRemove}
           onFilter={handleFilerMovies}
           query={query}
-          searchError={searchError}
+          searchError={searchError} //ошибка поиска
           isSearching={isSeachingMovies}
           toggleShortMovies={toggleShortMovies}
         />} />
@@ -292,7 +292,7 @@ function App() {
           onRemove={handleRemove}
           onFilter={handleFilerMovies}
           query={query}
-          searchError={searchError}
+          searchError={searchError} //ошибка поиска
           isSearching={isSeachingMovies}
           toggleShortMovies={toggleShortMovies}
         />} />

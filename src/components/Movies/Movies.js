@@ -63,6 +63,7 @@ function Movies({
         if (isSearching) return <Preloader />
     }
 
+        console.log(searchError);
 
     return (
         <main className="main">
@@ -75,7 +76,7 @@ function Movies({
                         handleChange={handleChange}
                         isSearchValid={isSearchValid} />
                     {isPreloaderActive()}
-                    {searchError ? (
+                    {query.length === 0  ? (
                         <p className="movie-search-status">{searchError}</p>
                     ) : (
                         <MoviesCardList movies={movies}
