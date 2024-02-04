@@ -65,8 +65,6 @@ function Movies({
         if (isSearching) return <Preloader />
     }
 
-    console.log(query.length, searchError);
-
     return (
         <main className="main">
             <div className="main">

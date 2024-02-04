@@ -154,13 +154,12 @@ function App() {
       .catch((err) => console.log(`Ошибка регистрации пользователя ${err}`))
   }
 
-
-
   //выход из системы
   function signOut() {
     localStorage.clear();
     setIsLogged(false);
     setCurrentUser({});
+    setSavedMovies([]);
     navigate("/signin", { replace: true });
   }
 
