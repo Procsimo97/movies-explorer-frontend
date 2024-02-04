@@ -57,7 +57,7 @@ function App() {
 
   //для обновления профиля
   const [isEditProfileLoading, setIsEditProfileLoading] = useState(false);
-  const [messageStatus, setMessageStatus] = useState('');
+  const [messageStatus, setMessageStatus] = useState(''); //для сообщения в профиле
 
   //функции для работы бургер меню
   function handleBurgerClick() {
@@ -125,8 +125,13 @@ function App() {
   /*проверка токена*/
   useEffect(() => {
     checkToken();
-    setMessageStatus('');
   }, [setIsLogged])
+
+  //сброс ошибки в профиле, инпута в сохраненных фильмах
+  useEffect(() => {
+    setMessageStatus('');
+    setInputSavedFilmsValue('');
+}, [navigate])
 
   //авторизация
   function handleLogin(dataLogin) {
@@ -244,7 +249,6 @@ function App() {
     return newArr;
   }
 
-
   return (
 
     <CurrentUserContext.Provider value={currentUser}>
@@ -283,6 +287,7 @@ function App() {
           searchError={searchError} //ошибка поиска
           isSearching={isSeachingMovies}
           toggleShortMovies={toggleShortMovies}
+          navigate={navigate}
         />} />
 
         <Route path='/saved-movies' element={<ProtectedRoute isLogged={isLogged} component={SavedMovies}
@@ -295,6 +300,7 @@ function App() {
           searchError={searchError} //ошибка поиска
           isSearching={isSeachingMovies}
           toggleShortMovies={toggleShortMovies}
+          navigate={navigate}
         />} />
 
         <Route path='/profile' element={<ProtectedRoute isLogged={isLogged} component={Profile}

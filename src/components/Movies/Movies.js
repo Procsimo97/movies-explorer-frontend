@@ -3,6 +3,7 @@ import SearchForm from "./SearchForm/SearchForm";
 import Footer from "../Footer/Footer"
 import { useState, useEffect } from "react";
 import Preloader from "../Preloader/Preloader";
+import { logDOM } from "@testing-library/react";
 
 function Movies({
     movies,
@@ -14,6 +15,7 @@ function Movies({
     isSearching,
     searchError,
     toggleShortMovies, //фильтрует на короткометр
+    navigate,
 }) {
 
     //поля запроса
@@ -63,7 +65,7 @@ function Movies({
         if (isSearching) return <Preloader />
     }
 
-        console.log(searchError);
+    console.log(query.length, searchError);
 
     return (
         <main className="main">
@@ -76,9 +78,6 @@ function Movies({
                         handleChange={handleChange}
                         isSearchValid={isSearchValid} />
                     {isPreloaderActive()}
-                    {query.length === 0  ? (
-                        <p className="movie-search-status">{searchError}</p>
-                    ) : (
                         <MoviesCardList movies={movies}
                             savedMovies={savedMovies}
                             typeIcon={'save'}
@@ -92,8 +91,8 @@ function Movies({
                             toggleShortMovies={toggleShortMovies} //фильтр на короткометр
                             onFilter={onFilter} //фильтр на названия
                             inputValue={inputValue}
+                            navigate={navigate}
                         />
-                    )}
 
                 </div>
             </div>

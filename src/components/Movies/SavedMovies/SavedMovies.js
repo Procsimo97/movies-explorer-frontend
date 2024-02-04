@@ -57,6 +57,7 @@ export default function SavedMovies(props) {
                         toggleShortMovies={props.toggleShortMovies}
                         onFilter={props.onFilter} //фильтр на названия
                         inputValue={props.inputValue}
+                        navigate={props.navigate}
                     />
                 </div>
             </div>
