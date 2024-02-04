@@ -2,6 +2,7 @@ import logo from "../../images/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/hooks/validateForms";
 import { useEffect } from "react";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 export default function AuthForm(props) {
 
@@ -35,6 +36,7 @@ export default function AuthForm(props) {
                                 id="email"
                                 name="email"
                                 type="email"
+                                pattern={EMAIL_PATTERN}
                                 required
                                 onChange={handleChange}
                                 value={values.email || ''}

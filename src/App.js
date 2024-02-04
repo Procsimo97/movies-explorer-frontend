@@ -153,7 +153,7 @@ function App() {
 
   //выход из системы
   function signOut() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setIsLogged(false);
     setCurrentUser({});
     navigate("/signin", { replace: true });
