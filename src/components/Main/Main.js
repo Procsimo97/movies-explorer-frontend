@@ -7,14 +7,14 @@ import Footer from "../Footer/Footer.js"
 
 function Main() {
   return (
-    <section className="main">
+    <main className="main">
       <Promo />
       <Navtab />
       <AboutProject />
       <Techs />
       <AboutMe />
       <Footer />
-    </section>
+    </main>
   )
 }
 

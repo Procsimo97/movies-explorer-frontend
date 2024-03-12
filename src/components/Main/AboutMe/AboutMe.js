@@ -10,7 +10,7 @@ export default function AboutMe() {
 
             <div className="profile-info">
                 <div className="profile-info__text">
-                    <h2 className="profile-info__name">Анна</h2>
+                    <h3 className="profile-info__name">Анна</h3>
                     <p className="profile-info__job">Фронтенд-разработчик, 26 лет</p>
                     <div className="profile-info__container">
                         <p className="profile-info__user-info">Я родилась и живу в Иркутске,

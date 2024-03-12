@@ -1,28 +1,23 @@
-import { useState } from "react";
-import cover from "../../../images/film-cover.jpg"
+export default function MoviesCard({ movie, isSaved, onRemove, onSave, typeIcon, btnClass }) {
 
-export default function MoviesCard(props) {
+    //перевод минуты в часы
+    function getTimeFromMins(mins) {
+        let hours = Math.trunc(mins / 60);
+        let minutes = mins % 60;
+        return hours + 'ч ' + minutes + 'м';
+    }
+    const duration = getTimeFromMins(movie.duration);
 
-   /*временная заглушка для заполнения карточки фильма*/
-    const cardFilm = {
-        name: "Бег это свобода",
-        duration: "1ч 17м",
-    };
-
-    const [isSaved, setIsSaved] = useState(false);
-    
-
-    function saveCard() {
-        if(isSaved) {
-            setIsSaved(false);
-        } else {
-            setIsSaved(true);
-        }
+    function removeCard() {
+        onRemove(movie)
     }
 
-    /*заглушка*/
-    function removeCard() {
-        console.log("delete card");
+    function saveMovieCard() {
+        if (!isSaved) {
+            onSave(movie);
+        } else {
+            removeCard();
+        }
     }
 
     const cardSaveButtonClassName = (
@@ -33,18 +28,23 @@ export default function MoviesCard(props) {
         `${isSaved ? '' : 'Сохранить'}`
     );
 
-    return(
+
+    return (
         <div className="films">
             <article className="films__box">
-                <button type="button" className={`link ${cardSaveButtonClassName} films__save ${props.btnClass} `}
-                                      onClick={props.typeIcon === 'save' ? saveCard : removeCard}>
-                                     { props.typeIcon === 'save' ? cardTitleButton : ''}
+                <button type="button" className={`link ${cardSaveButtonClassName} films__save ${btnClass} `}
+                    onClick={typeIcon === 'save' ? saveMovieCard : removeCard}>
+                    {typeIcon === 'save' ? cardTitleButton : ''}
                 </button>
-
-                <img className="films__cover" src={cover} alt={`обложка фильма ${cardFilm.name}`} />
+                <a className='element__preview' href={movie.trailerLink} target="_blank" rel="noreferrer">
+                    <img className="films__cover" src={typeIcon === 'save'
+                        ? `https://api.nomoreparties.co/${movie.image.url}`
+                        : movie.image}
+                        alt={`обложка фильма ${movie.nameRU}`} />
+                </a>
                 <div className="films__info">
-                    <h2 className="films__name">{cardFilm.name}</h2>
-                    <p className="films__duration">{cardFilm.duration}</p>
+                    <h2 className="films__name">{movie.nameRU}</h2>
+                    <p className="films__duration">{duration}</p>
                 </div>
             </article>
         </div>
