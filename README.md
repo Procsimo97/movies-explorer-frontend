@@ -35,9 +35,21 @@
 
 Также использованы такие технологии как Хуки (валидация форм, получение ширины экрана), работа с локальным хранилищем, НОС-компоненты, БЭМ.
 
-[Ссылка на макет Figma: ](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-2798&mode=design&t=NRCaszjXqoK6AlVU-0)
-[Ссылка на бэкенд](https://github.com/Procsimo97/movies-explorer-api)
+[Ссылка на макет Figma: ](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-2798&mode=design&t=NRCaszjXqoK6AlVU-0)  
+[Ссылка на бэкенд](https://github.com/Procsimo97/movies-explorer-api)  
 **НА ДАННЫЙ МОМЕНТ СЕРВЕР ОТКЛЮЧЕН**
+
+### Инструкция по запуску проекта
+1. Создать новую папку  
+ ` cd <имя папки>`
+
+2. Скачать в созданную папку репозиторий  
+`git clone git@github.com:Procsimo97/movies-explorer-frontend.git `
+
+3. Установить зависимости  
+`yarn или npm install`
+
+4. Запустить фронтенд через команду `yarn или npm start`
 
 Ссылка на сервер: procsimo.movies.nomoredomainsmonster.ru
 
